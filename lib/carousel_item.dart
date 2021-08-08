@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class CarouselItem extends StatelessWidget {
   final String ImageUrl;
@@ -10,7 +11,17 @@ class CarouselItem extends StatelessWidget {
           showDialog(context: context, builder: (context) => Text(ImageUrl));
         },
         child: Container(
-          margin: EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            boxShadow: [
+              BoxShadow(
+                color: HexColor('#9b9b9b'),
+                blurRadius: 10,
+                offset: Offset(0, 12), // Shadow position
+              ),
+            ],
+          ),
+          margin: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 30),
           child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               child: Stack(

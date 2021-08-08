@@ -43,33 +43,41 @@ class App extends StatelessWidget {
             }
             final genres = snapshot.data as List<MovieModel>;
             return Container(
-              height: 50,
-              margin: EdgeInsets.only(left: 0, top: 25),
+              height: 70,
+              margin: EdgeInsets.only(left: 0, top: 10),
               child: ListView.builder(
                 itemCount: genres.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Container(
                     width: 120.0,
-                    // color: Colors.red,
-
-                    margin: EdgeInsets.only(
-                      left: 40,
-                    ),
+                    margin: EdgeInsets.only(left: 40, bottom: 20),
                     child:
                         Stack(alignment: Alignment.center, children: <Widget>[
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
-                          child: ColorFiltered(
-                            child: Image.network(
-                              genres[index].imageUrl,
-                              fit: BoxFit.cover,
-                              height: 90,
-                              width: 120,
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: HexColor('#9b9b9b'),
+                              blurRadius: 10,
+                              offset: Offset(0, 6), // Shadow position
                             ),
-                            colorFilter: ColorFilter.mode(
-                                HexColor('#242757'), BlendMode.color),
-                          )),
+                          ],
+                        ),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15.0),
+                            child: ColorFiltered(
+                              child: Image.network(
+                                genres[index].imageUrl,
+                                fit: BoxFit.cover,
+                                height: 50,
+                                width: 120,
+                              ),
+                              colorFilter: ColorFilter.mode(
+                                  HexColor('#242757'), BlendMode.color),
+                            )),
+                      ),
                       Text(
                         genres[index].title,
                         style:
@@ -123,7 +131,16 @@ class App extends StatelessWidget {
                       },
                       child: Container(
                           width: 120.0,
-                          // color: Colors.red,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: HexColor('#9b9b9b'),
+                                blurRadius: 10,
+                                offset: Offset(0, 8), // Shadow position
+                              ),
+                            ],
+                          ),
                           margin: EdgeInsets.only(
                             left: 40,
                           ),
@@ -210,7 +227,7 @@ class App extends StatelessWidget {
             );
           }),
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 45),
+        margin: EdgeInsets.symmetric(horizontal: 45, vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -244,7 +261,16 @@ class App extends StatelessWidget {
                   return Column(children: <Widget>[
                     Container(
                         width: 120.0,
-                        // color: Colors.red,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: HexColor('#9b9b9b'),
+                              blurRadius: 10,
+                              offset: Offset(0, 8), // Shadow position
+                            ),
+                          ],
+                        ),
                         margin: EdgeInsets.only(
                           left: 40,
                         ),
@@ -334,7 +360,7 @@ class App extends StatelessWidget {
       home: Scaffold(
         backgroundColor: HexColor('#ffffff'),
         appBar: AppBar(
-          backgroundColor: HexColor('#ffffff'),
+          backgroundColor: HexColor('#f4f4f4'),
           title: Text(
             'MOVIEGO',
             style: TextStyle(color: HexColor('#ce412e')),
@@ -357,6 +383,7 @@ class App extends StatelessWidget {
           ],
         ),
         body: Container(
+          color: HexColor('#f4f4f4'),
           child: SingleChildScrollView(
             child: Column(
               children: children2,
