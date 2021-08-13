@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   hexcolor: ^2.0.4
   carousel_slider: ^4.0.0
+  http: ^0.13.3
+  tmdb_api: ^1.2.7
 
 dev_dependencies:
   flutter_test:
@@ -76,3 +78,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+   
