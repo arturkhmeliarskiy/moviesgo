@@ -232,7 +232,7 @@ packages:
       name: frontend_server_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   glob:
     dependency: transitive
     description:
@@ -253,7 +253,7 @@ packages:
       name: hexcolor
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   http:
     dependency: "direct main"
     description:
@@ -334,21 +334,7 @@ packages:
   moviego_models:
     dependency: "direct main"
     description:
-      path: "packages/moviego_models"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  moviego_repositories:
-    dependency: "direct main"
-    description:
-      path: "packages/moviego_repositories"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  moviego_services:
-    dependency: transitive
-    description:
-      path: "packages/moviego_services"
+      path: "../moviego_models"
       relative: true
     source: path
     version: "1.0.0+1"

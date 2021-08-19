@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/loading/loading_movie_list.dart';
-import 'package:flutter_app/services/movie_data.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:moviego_models/movie_model.dart';
 
 import '../description/description_screen.dart';
 

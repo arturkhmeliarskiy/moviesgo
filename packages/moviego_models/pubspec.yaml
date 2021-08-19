@@ -1,7 +1,8 @@
-name: flutter_app
+name: moviego_models
 description: A new Flutter application.
 
-publish_to: 'none'
+publish_to: 'none' 
+
 version: 1.0.0+1
 
 environment:
@@ -20,10 +21,6 @@ dependencies:
   build_runner: 2.1.1
   convert: 3.0.1
   dio: 4.0.0
-  moviego_models:
-    path: packages/moviego_models
-  moviego_repositories:
-    path: packages/moviego_repositories
 
 dev_dependencies:
   flutter_test:

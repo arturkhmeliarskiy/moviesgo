@@ -7,9 +7,10 @@ import 'package:flutter_app/description/icon_info.dart';
 import 'package:flutter_app/description/movie_nems.dart';
 import 'package:flutter_app/description/screenshots.dart';
 import 'package:flutter_app/header_title/header_title.dart';
-import 'package:flutter_app/services/movie_data.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:moviego_models/movie_model.dart';
+
 
 class DescriptionScreen extends StatelessWidget {
   final Future future;

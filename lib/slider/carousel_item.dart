@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/description/description_screen.dart';
-import 'package:flutter_app/services/movie_data.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:moviego_models/movie_model.dart';
 
 class CarouselItem extends StatelessWidget {
   final MovieModel model;

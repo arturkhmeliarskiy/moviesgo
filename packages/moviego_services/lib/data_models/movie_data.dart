@@ -1,4 +1,4 @@
-class MovieModel {
+class MovieData {
   final String backdropPath;
   final int id;
   final String originalLanguage;
@@ -14,7 +14,7 @@ class MovieModel {
 
   String? error;
 
-  MovieModel({
+  MovieData({
     this.backdropPath = '',
     this.id = 0,
     this.originalLanguage = '',
@@ -29,12 +29,12 @@ class MovieModel {
     this.voteAverage = '',
   });
 
-  factory MovieModel.fromJson(dynamic json) {
+  factory MovieData.fromJson(dynamic json) {
     if (json == null) {
-      return MovieModel();
+      return MovieData();
     }
 
-    return MovieModel(
+    return MovieData(
         backdropPath: json['backdrop_path'],
         id: json['id'],
         originalLanguage: json['original_language'],
