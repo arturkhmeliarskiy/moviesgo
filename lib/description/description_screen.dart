@@ -7,7 +7,7 @@ import 'package:flutter_app/description/icon_info.dart';
 import 'package:flutter_app/description/movie_nems.dart';
 import 'package:flutter_app/description/screenshots.dart';
 import 'package:flutter_app/header_title/header_title.dart';
-import 'package:flutter_app/services/movie_services.dart';
+import 'package:flutter_app/services/movie_data.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -18,10 +18,9 @@ class DescriptionScreen extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var hexColor = HexColor('#ce412e');
     var children2 = [
       CoverMovie(
-        images: model.imageUrl,
+        images: model.posterPath,
       ),
       Container(
           margin: EdgeInsets.only(left: 0, top: 20),
@@ -29,14 +28,14 @@ class DescriptionScreen extends StatelessWidget {
             child: Column(
               children: [
                 MovieNems(name: model.title),
-                GenneMovie(name: model.genre),
+                GenneMovie(name: 'Action'),
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment.center,
                   width: 120,
                   child: Center(
                     child: StarRating(
-                      rating: model.stars,
+                      rating: model.popularity,
                       iconSize: 24,
                       icon: Icons.star,
                     ),
@@ -52,9 +51,9 @@ class DescriptionScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconInfo(name: 'Year', name2: model.year),
-            IconInfo(name: 'Country', name2: model.country),
-            IconInfo(name: 'Lenght', name2: model.lenght),
+            IconInfo(name: 'Year', name2: '2021'),
+            IconInfo(name: 'Country', name2: 'USA'),
+            IconInfo(name: 'Lenght', name2: '140'),
           ],
         ),
       ),
@@ -63,7 +62,7 @@ class DescriptionScreen extends StatelessWidget {
             "Marvel's The Avengers, also known as The Avengers and Avengers Assemble, is a 2012 superhero film, based on the Marvel Comics superhero team of the same name. The film is a crossover/sequel to Iron Man, The Incredible Hulk, Iron Man 2, Thor, and Captain America: The First Avenger. It is the sixth film in the Marvel Cinematic Universe and the sixth and final film of Phase One. The film was released on April 25, 2012 internationally and on May 4, 2012 in the United States.",
       ),
       HeaderTitle(title: 'Screenshots'),
-      Screenshots(screenshots: model.screenshots, future: future)
+      Screenshots(screenshots: [], future: future)
     ];
     return Scaffold(
       extendBodyBehindAppBar: true,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/description/description_screen.dart';
-import 'package:flutter_app/services/movie_services.dart';
+import 'package:flutter_app/services/movie_data.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class CarouselItem extends StatelessWidget {
@@ -34,8 +34,10 @@ class CarouselItem extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               child: Stack(
                 children: <Widget>[
-                  Image.network(model.imageUrl,
-                      fit: BoxFit.cover, width: 1000.0),
+                  Image.network(
+                      'https://image.tmdb.org/t/p/original/${model.backdropPath}',
+                      fit: BoxFit.cover,
+                      width: 1000.0),
                   Positioned(
                     bottom: 0.0,
                     left: 0.0,

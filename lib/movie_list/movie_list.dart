@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/loading/loading_movie_list.dart';
+import 'package:flutter_app/services/movie_data.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../description/description_screen.dart';
-import '../services/movie_services.dart';
 
 class MovieList extends StatelessWidget {
   final Future future;
@@ -31,7 +31,7 @@ class MovieList extends StatelessWidget {
             itemCount: mylist.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              final ratings = mylist[index].stars;
+              final ratings = mylist[index].popularity;
               return Column(children: <Widget>[
                 GestureDetector(
                   onTap: () {
@@ -58,7 +58,7 @@ class MovieList extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15.0),
                         child: Image.network(
-                          mylist[index].imageUrl,
+                          mylist[index].posterPath,
                           fit: BoxFit.cover,
                           width: 120,
                           height: 150,

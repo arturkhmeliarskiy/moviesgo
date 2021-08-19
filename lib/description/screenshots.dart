@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/loading/loading_movie_list.dart';
 import 'package:flutter_app/loading/loading_screenshots.dart';
 import 'package:hexcolor/hexcolor.dart';
 

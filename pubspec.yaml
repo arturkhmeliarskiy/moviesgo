@@ -31,7 +31,12 @@ dependencies:
   hexcolor: ^2.0.4
   carousel_slider: ^4.0.0
   http: ^0.13.3
-  tmdb_api: ^1.2.7
+  tmdb_api: 2.0.0-nullsafety
+  json_serializable: 4.1.4
+  json_annotation: 4.0.1
+  build_runner: 2.1.1
+  convert: 3.0.1
+  dio: 4.0.0
 
 dev_dependencies:
   flutter_test:

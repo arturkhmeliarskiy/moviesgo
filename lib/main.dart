@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/services/movie_services.dart';
 import 'package:flutter_app/slider/carousel_sliders.dart';
 import 'package:flutter_app/category/category_movie.dart';
 import 'package:flutter_app/header_title/header_title.dart';
 import 'package:flutter_app/movie_list/movie_list.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'services/movie_services.dart';
 
 void main() => runApp(App());
 
@@ -13,14 +13,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     var children2 = [
       CarouselSliders(),
-      CategoryMovie(),
+      CategoryMovie(
+        future: MovieSevice().getGenreList(),
+      ),
       HeaderTitle(title: 'My list'),
       MovieList(
-        future: MovieSevice().getMyList('adadad'),
+        future: MovieSevice().searcMovies('adadad'),
       ),
       HeaderTitle(title: 'Films populaires'),
       MovieList(
-        future: MovieSevice().getPopular('adadad'),
+        future: MovieSevice().searcMovies('adadad'),
       ),
     ];
     return MaterialApp(

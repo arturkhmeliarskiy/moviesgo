@@ -1,21 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/loading/loading_category.dart';
+import 'package:flutter_app/services/genre.dart';
+import 'package:flutter_app/services/movie_data.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../services/movie_services.dart';
+final backImage = MovieModel;
 
 class CategoryMovie extends StatelessWidget {
+  final Future future;
+  const CategoryMovie({Key? key, required this.future}) : super(key: key);
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: MovieSevice().getGenres(),
+      future: future,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return Center(
             child: LoadingCategory(),
           );
         }
-        final genres = snapshot.data as List<MovieModel>;
+        final genres = snapshot.data as List<Genre>;
+
+        print(backImage);
         return Container(
           height: 70,
           margin: EdgeInsets.only(left: 0, top: 10),
@@ -42,7 +48,7 @@ class CategoryMovie extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15.0),
                         child: ColorFiltered(
                           child: Image.network(
-                            genres[index].imageUrl,
+                            'https://image.tmdb.org/t/p/original/${genres[index]}',
                             fit: BoxFit.cover,
                             height: 50,
                             width: 120,
@@ -52,7 +58,7 @@ class CategoryMovie extends StatelessWidget {
                         )),
                   ),
                   Text(
-                    genres[index].title,
+                    genres[index].name,
                     style: TextStyle(fontSize: 17, color: HexColor('#f4f4ff')),
                   )
                 ]),
