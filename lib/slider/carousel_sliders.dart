@@ -9,7 +9,7 @@ import '../loading/loading_collection.dart';
 class CarouselSliders extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: MoviesRepository().searchMovies('adada'),
+      future: MoviesRepository().getPopularMovies(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return Center(
@@ -25,7 +25,7 @@ class CarouselSliders extends StatelessWidget {
           ),
           items: movies
               .map((e) => CarouselItem(
-                  model: e, future: MoviesRepository().searchMovies('adada')))
+                  model: e, future: MoviesRepository().getPopularMovies()))
               .toList(),
         );
       });

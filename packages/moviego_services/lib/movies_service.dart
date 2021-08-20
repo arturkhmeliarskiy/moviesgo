@@ -13,7 +13,7 @@ class MoviesSevice {
 
   final String baseUrl = 'https://api.themoviedb.org/3';
   final String apiKey = 'api_key=8ec2243bbcaf6f68b4bfd5617cb9e641';
-  Future<List<MovieData>> searcMovies(String query) async {
+  Future<List<MovieData>> getPopularMovies() async {
     try {
       final url = '$baseUrl/movie/now_playing?$apiKey';
       final response = await _dio.get(url);
@@ -27,6 +27,16 @@ class MoviesSevice {
     }
   }
 
+  Future<List<MovieData>> searchMovies(String query) async {
+    //TODO implement this
+    throw 'Not implemented';
+  }
+
+  Future<List<MovieData>> getMoviesByGenreId(int genreId) async {
+    //TODO implement this
+    throw 'Not implemented';
+  }
+
   Future<List<Genre>> getGenreList() async {
     try {
       final response = await _dio.get('$baseUrl/genre/movie/list?$apiKey');
@@ -38,4 +48,6 @@ class MoviesSevice {
           'Exception accoured: $error with stacktrace: $stacktrace');
     }
   }
+
+
 }

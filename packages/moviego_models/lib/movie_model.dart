@@ -4,7 +4,7 @@ class MovieModel {
   final String originalLanguage;
   final String originalTitle;
   final String overview;
-  final double popularity;
+  final int popularity;
   final String posterPath;
   final String releaseDate;
   final String title;

@@ -3,9 +3,10 @@ import 'package:flutter_app/slider/carousel_sliders.dart';
 import 'package:flutter_app/header_title/header_title.dart';
 import 'package:flutter_app/movie_list/movie_list.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:moviego_models/genre_model.dart';
 import 'package:moviego_repositories/movies_repository.dart';
 
-import 'category/category_movie.dart';
+import 'category/categories_list.dart';
 
 void main() => runApp(App());
 
@@ -14,16 +15,26 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     var children2 = [
       CarouselSliders(),
-      CategoryMovie(
+      FutureBuilder(
         future: MoviesRepository().getGenres(),
+        builder: (context, snapshot) {
+          if(snapshot.connectionState != ConnectionState.done)
+          {
+            return SizedBox();
+          }
+
+          return CategoriesList(
+            genres: snapshot.data as List<GenreModel>,
+          );
+        },
       ),
       HeaderTitle(title: 'My list'),
       MovieList(
-        future: MoviesRepository().searchMovies('adadad'),
+        future: MoviesRepository().getPopularMovies(),
       ),
-      HeaderTitle(title: 'Films populaires'),
+      HeaderTitle(title: 'Best action movies'),
       MovieList(
-        future: MoviesRepository().searchMovies('adadad'),
+        future: MoviesRepository().getMoviesByGenreId(28),
       ),
     ];
     return MaterialApp(

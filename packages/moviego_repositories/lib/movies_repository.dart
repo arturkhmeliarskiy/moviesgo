@@ -5,7 +5,7 @@ import 'package:moviego_models/genre_model.dart';
 import 'package:moviego_models/movie_model.dart';
 import 'package:moviego_services/data_models/genre.dart';
 import 'package:moviego_services/data_models/movie_data.dart';
-import 'package:moviego_services/movies_service.dart';
+import 'package:moviego_services/moviego_services.dart';
 
 final _genreImagesMap = <int, String>{
   28: 'https://cdn.datta.store/auxapi/files/image/alcohol_4yyQwsU.png',
@@ -18,8 +18,14 @@ final _genreImagesMap = <int, String>{
 class MoviesRepository {
   final MoviesSevice _service = MoviesSevice();
 
+  Future<List<MovieModel>> getPopularMovies() async {
+    final movies = await _service.getPopularMovies();
+
+    return movies.map((e) => e.toModel()).toList();
+  }
+
   Future<List<MovieModel>> searchMovies(String query) async {
-    final movies = await _service.searcMovies(query);
+    final movies = await _service.searchMovies(query);
 
     return movies.map((e) => e.toModel()).toList();
   }
@@ -27,6 +33,12 @@ class MoviesRepository {
   Future<List<GenreModel>> getGenres() async {
     final genres = await _service.getGenreList();
     return genres.map((e) => e.toModel()).toList();
+  }
+
+  Future<List<MovieModel>> getMoviesByGenreId(int id) async {
+    final movies = await _service.getMoviesByGenreId(id);
+
+    return movies.map((e) => e.toModel()).toList();
   }
 }
 
@@ -37,7 +49,7 @@ extension on MovieData {
         originalLanguage: originalLanguage,
         originalTitle: originalTitle,
         overview: overview,
-        popularity: popularity,
+        popularity: popularity.toInt(),
         posterPath: posterPath,
         releaseDate: releaseDate,
         title: title,

@@ -58,7 +58,7 @@ class MovieList extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15.0),
                         child: Image.network(
-                          mylist[index].posterPath,
+                          'https://image.tmdb.org/t/p/original/${mylist[index].posterPath}',
                           fit: BoxFit.cover,
                           width: 120,
                           height: 150,

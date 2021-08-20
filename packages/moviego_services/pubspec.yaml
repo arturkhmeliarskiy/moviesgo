@@ -21,9 +21,6 @@ dependencies:
   build_runner: 2.1.1
   convert: 3.0.1
   dio: 4.0.0
-  moviego_models:
-    path: ../moviego_models
-
 
 dev_dependencies:
   flutter_test:
