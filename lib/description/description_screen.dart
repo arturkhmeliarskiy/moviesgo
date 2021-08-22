@@ -11,12 +11,12 @@ import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_model.dart';
 
-
 class DescriptionScreen extends StatelessWidget {
   final Future future;
   final MovieModel model;
   const DescriptionScreen({Key? key, required this.model, required this.future})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var children2 = [
@@ -29,7 +29,7 @@ class DescriptionScreen extends StatelessWidget {
             child: Column(
               children: [
                 MovieNems(name: model.title),
-                GenneMovie(name: 'Action'),
+                GenneMovie(name: model.genre),
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment.center,
@@ -59,8 +59,7 @@ class DescriptionScreen extends StatelessWidget {
         ),
       ),
       DescritionMovie(
-        descrition:
-            "Marvel's The Avengers, also known as The Avengers and Avengers Assemble, is a 2012 superhero film, based on the Marvel Comics superhero team of the same name. The film is a crossover/sequel to Iron Man, The Incredible Hulk, Iron Man 2, Thor, and Captain America: The First Avenger. It is the sixth film in the Marvel Cinematic Universe and the sixth and final film of Phase One. The film was released on April 25, 2012 internationally and on May 4, 2012 in the United States.",
+        descrition: model.overview,
       ),
       HeaderTitle(title: 'Screenshots'),
       Screenshots(screenshots: [], future: future)

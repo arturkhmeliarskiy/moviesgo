@@ -33,8 +33,17 @@ class MoviesSevice {
   }
 
   Future<List<MovieData>> getMoviesByGenreId(int genreId) async {
-    //TODO implement this
-    throw 'Not implemented';
+    try {
+      final url = '$baseUrl/discover/movie?with_genres=$genreId&$apiKey';
+      final response = await _dio.get(url);
+      var movies = response.data['results'] as List;
+      List<MovieData> movieList =
+          movies.map((m) => MovieData.fromJson(m)).toList();
+      return movieList;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
   }
 
   Future<List<Genre>> getGenreList() async {
@@ -48,6 +57,4 @@ class MoviesSevice {
           'Exception accoured: $error with stacktrace: $stacktrace');
     }
   }
-
-
 }

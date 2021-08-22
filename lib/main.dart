@@ -18,8 +18,7 @@ class App extends StatelessWidget {
       FutureBuilder(
         future: MoviesRepository().getGenres(),
         builder: (context, snapshot) {
-          if(snapshot.connectionState != ConnectionState.done)
-          {
+          if (snapshot.connectionState != ConnectionState.done) {
             return SizedBox();
           }
 
@@ -32,9 +31,9 @@ class App extends StatelessWidget {
       MovieList(
         future: MoviesRepository().getPopularMovies(),
       ),
-      HeaderTitle(title: 'Best action movies'),
+      HeaderTitle(title: 'Comedy'),
       MovieList(
-        future: MoviesRepository().getMoviesByGenreId(28),
+        future: MoviesRepository().getMoviesByGenreId(35),
       ),
     ];
     return MaterialApp(

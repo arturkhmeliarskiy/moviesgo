@@ -3,7 +3,6 @@ import 'package:hexcolor/hexcolor.dart';
 
 class GenneMovie extends StatelessWidget {
   final String name;
-
   const GenneMovie({
     required this.name,
     Key? key,

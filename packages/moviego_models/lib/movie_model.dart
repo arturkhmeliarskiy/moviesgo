@@ -1,6 +1,8 @@
 class MovieModel {
   final String backdropPath;
   final int id;
+  final List<dynamic> genreIds;
+  final String genre;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
@@ -15,6 +17,8 @@ class MovieModel {
   MovieModel({
     required this.backdropPath,
     required this.id,
+    required this.genreIds,
+    required this.genre,
     required this.originalLanguage,
     required this.originalTitle,
     required this.overview,

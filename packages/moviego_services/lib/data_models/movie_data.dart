@@ -1,6 +1,7 @@
 class MovieData {
   final String backdropPath;
   final int id;
+  final List<dynamic> genreIds;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
@@ -17,6 +18,7 @@ class MovieData {
   MovieData({
     this.backdropPath = '',
     this.id = 0,
+    this.genreIds = const [],
     this.originalLanguage = '',
     this.originalTitle = '',
     this.overview = '',
@@ -37,6 +39,7 @@ class MovieData {
     return MovieData(
         backdropPath: json['backdrop_path'],
         id: json['id'],
+        genreIds: json['genre_ids'],
         originalLanguage: json['original_language'],
         originalTitle: json['original_title'],
         overview: json['overview'],

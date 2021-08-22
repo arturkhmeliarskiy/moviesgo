@@ -71,9 +71,11 @@ class MovieList extends StatelessWidget {
                     top: 10,
                     left: 40,
                   ),
-                  child: Text(mylist[index].title,
-                      style:
-                          TextStyle(fontSize: 15, color: HexColor('#161616'))),
+                  child: Text(
+                    mylist[index].title,
+                    style: TextStyle(fontSize: 15, color: HexColor('#161616')),
+                    maxLines: 2,
+                  ),
                 ),
                 Container(
                   width: 100,
