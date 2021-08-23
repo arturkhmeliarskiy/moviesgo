@@ -29,7 +29,8 @@ class DescriptionScreen extends StatelessWidget {
             child: Column(
               children: [
                 MovieNems(name: model.title),
-                GenneMovie(name: model.genre),
+                if (model.genres.isNotEmpty)
+                  GenneMovie(name: model.genres.first.name),
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment.center,

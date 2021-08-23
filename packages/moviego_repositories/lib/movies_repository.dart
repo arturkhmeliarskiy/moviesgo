@@ -35,41 +35,23 @@ final _genreImagesMap = <int, String>{
   37: 'https://res.cloudinary.com/jerrick/image/upload/f_jpg,fl_progressive,q_auto,w_1024/q3zwj4txrzvt7i1shcxa.jpg',
 };
 
-final _genreMovie = <int, String>{
-  28: "Action",
-  12: "Adventure",
-  16: "Animation",
-  35: "Comedy",
-  80: "Crime",
-  99: "Documentary",
-  18: "Drama",
-  10751: "Family",
-  14: "Fantasy",
-  36: "History",
-  27: "Horror",
-  10402: "Music",
-  9648: "Mystery",
-  10749: "Romance",
-  878: "Science Fiction",
-  10770: "TV Movie",
-  53: "Thriller",
-  10752: "War",
-  37: "Western",
-};
-
 class MoviesRepository {
   final MoviesSevice _service = MoviesSevice();
+  late List<GenreModel> _genres;
 
   Future<List<MovieModel>> getPopularMovies() async {
     final movies = await _service.getPopularMovies();
 
-    return movies.map((e) => e.toModel()).toList();
+    await _updadeGenres();
+
+    return movies.map((e) => e.toModel(_genres)).toList();
   }
 
   Future<List<MovieModel>> searchMovies(String query) async {
     final movies = await _service.searchMovies(query);
+    await _updadeGenres();
 
-    return movies.map((e) => e.toModel()).toList();
+    return movies.map((e) => e.toModel(_genres)).toList();
   }
 
   Future<List<GenreModel>> getGenres() async {
@@ -79,16 +61,21 @@ class MoviesRepository {
 
   Future<List<MovieModel>> getMoviesByGenreId(int id) async {
     final movies = await _service.getMoviesByGenreId(id);
-    return movies.map((e) => e.toModel()).toList();
+    await _updadeGenres();
+
+    return movies.map((e) => e.toModel(_genres)).toList();
+  }
+
+  Future<void> _updadeGenres() async {
+    _genres = await getGenres();
   }
 }
 
 extension on MovieData {
-  MovieModel toModel() => MovieModel(
+  MovieModel toModel(List<GenreModel> allGenres) => MovieModel(
         backdropPath: backdropPath,
         id: id,
-        genreIds: genreIds,
-        genre: _genreMovie[genreIds[0]] ?? 'Comedy',
+        genres: allGenres.where((element) => this.genreIds.contains(element.id)).toList(),
         originalLanguage: originalLanguage,
         originalTitle: originalTitle,
         overview: overview,
