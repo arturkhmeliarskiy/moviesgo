@@ -75,7 +75,9 @@ extension on MovieData {
   MovieModel toModel(List<GenreModel> allGenres) => MovieModel(
         backdropPath: backdropPath,
         id: id,
-        genres: allGenres.where((element) => this.genreIds.contains(element.id)).toList(),
+        genres: allGenres
+            .where((element) => this.genreIds.contains(element.id))
+            .toList(),
         originalLanguage: originalLanguage,
         originalTitle: originalTitle,
         overview: overview,

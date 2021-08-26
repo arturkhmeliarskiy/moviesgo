@@ -1,3 +1,5 @@
+import 'package:moviego_services/data_models/movie_image.dart';
+
 import 'data_models/genre.dart';
 import 'data_models/movie_data.dart';
 import 'dart:async';
@@ -57,4 +59,14 @@ class MoviesSevice {
           'Exception accoured: $error with stacktrace: $stacktrace');
     }
   }
+
+  /*Future<MovieImage> getMovieImage(int movieId) async {
+    try {
+      final response = await _dio.get('$baseUrl/movie/$movieId/images?$apiKey');
+      return MovieImage.fromJson(response.data);
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }*/
 }

@@ -47,9 +47,9 @@ class CoverMovie extends StatelessWidget {
                         ),
                       ],
                       image: DecorationImage(
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           image: NetworkImage(
-                              'https://image.tmdb.org/t/p/original/${images}')),
+                              'https://image.tmdb.org/t/p/original/$images')),
                     ),
                   ),
                 ),
