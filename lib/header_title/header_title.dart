@@ -12,7 +12,8 @@ class HeaderTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.symmetric(horizontal: 45, vertical: 10),
+        margin: EdgeInsets.symmetric(horizontal: 45, vertical: 0),
+        padding: EdgeInsets.only(bottom: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

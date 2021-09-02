@@ -9,62 +9,72 @@ import 'package:flutter_app/description/screenshots.dart';
 import 'package:flutter_app/header_title/header_title.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:moviego_models/movie_model.dart';
+import 'package:moviego_models/movie_detail_model.dart';
+
+import 'package:moviego_repositories/movies_repository.dart';
 
 class DescriptionScreen extends StatelessWidget {
-  final Future future;
-  final MovieModel model;
-  const DescriptionScreen({Key? key, required this.model, required this.future})
-      : super(key: key);
-
+  final int model;
+  const DescriptionScreen({Key? key, required this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var children2 = [
-      CoverMovie(
-        images: model.posterPath,
-      ),
-      Container(
-          margin: EdgeInsets.only(left: 0, top: 20),
-          child: Center(
-            child: Column(
+      FutureBuilder(
+          future: MoviesRepository().getMovieDetail(model),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return Center(
+                child: null,
+              );
+            }
+            final mylist = snapshot.data as MovieDetailModel;
+            return Column(
               children: [
-                MovieNems(name: model.title),
-                if (model.genres.isNotEmpty)
-                  GenneMovie(nameGenre: model.genres),
+                CoverMovie(
+                    images: mylist.posterpath, trailerId: mylist.trailerId),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  alignment: Alignment.center,
-                  width: 120,
-                  child: Center(
-                    child: StarRating(
-                      rating: model.popularity,
-                      iconSize: 24,
-                      icon: Icons.star,
-                    ),
-                  ),
+                    margin: EdgeInsets.only(left: 0, top: 20),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          MovieNems(name: mylist.title),
+                          GenneMovie(nameGenre: mylist.genres),
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            alignment: Alignment.center,
+                            width: 135,
+                            child: Row(
+                              children: [
+                                StarRating(
+                                  rating: mylist.voteAverage / 2,
+                                  iconSize: 20,
+                                  icon: Icons.star,
+                                  fontSizes: 16,
+                                  marginLeft: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                Container(
+                    margin: EdgeInsets.only(top: 10),
+                    height: 45,
+                    width: 250,
+                    child: IconInfo(
+                      id: mylist.id,
+                    )),
+                DescritionMovie(
+                  descrition: mylist.overview,
                 ),
+                HeaderTitle(title: 'Screenshots'),
+                Screenshots(modelId: mylist.id)
               ],
-            ),
-          )),
-      Container(
-        margin: EdgeInsets.only(top: 10),
-        height: 50,
-        width: 250,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconInfo(name: 'Year', name2: '2021'),
-            IconInfo(name: 'Country', name2: 'USA'),
-            IconInfo(name: 'Lenght', name2: '140'),
-          ],
-        ),
-      ),
-      DescritionMovie(
-        descrition: model.overview,
-      ),
-      HeaderTitle(title: 'Screenshots'),
-      Screenshots(screenshots: [], future: future)
+            );
+          })
     ];
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -75,14 +85,6 @@ class DescriptionScreen extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search),
-            color: HexColor('#000000'),
-            iconSize: 30,
-          )
-        ],
         centerTitle: true,
         backgroundColor: Colors.white.withOpacity(0),
         elevation: 0,

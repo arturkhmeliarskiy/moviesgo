@@ -37,18 +37,18 @@ class MovieData {
     }
 
     return MovieData(
-        backdropPath: json['backdrop_path'],
-        id: json['id'],
-        genreIds: json['genre_ids'],
-        originalLanguage: json['original_language'],
-        originalTitle: json['original_title'],
-        overview: json['overview'],
-        popularity: json['popularity'],
-        posterPath: json['poster_path'],
-        releaseDate: json['release_date'],
-        title: json['title'],
-        video: json['video'],
-        voteCount: json['vote_count'],
+        backdropPath: json['backdrop_path'] ?? '',
+        id: json['id'] ?? 0,
+        genreIds: json['genre_ids'] ?? [],
+        originalLanguage: json['original_language'] ?? '',
+        originalTitle: json['original_title'] ?? '',
+        overview: json['overview'] ?? '',
+        popularity: json['popularity'] ?? 0,
+        posterPath: json['poster_path'] ?? '',
+        releaseDate: json['release_date'] ?? '',
+        title: json['title'] ?? '',
+        video: json['video'] ?? '',
+        voteCount: json['vote_count'] ?? '',
         voteAverage: json['vote_average'].toString());
   }
 }

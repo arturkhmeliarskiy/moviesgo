@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -16,14 +17,15 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         height: 70,
-        margin: EdgeInsets.only(left: 0, top: 10),
+        // color: Colors.green,
+        margin: EdgeInsets.only(left: 0, top: 0),
         child: ListView.builder(
           itemCount: genres.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Container(
               width: 120.0,
-              margin: EdgeInsets.only(left: 40, bottom: 20),
+              margin: EdgeInsets.only(left: 40, bottom: 0),
               child: Stack(alignment: Alignment.center, children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -31,7 +33,7 @@ class CategoriesList extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: HexColor('#9b9b9b'),
-                        blurRadius: 10,
+                        blurRadius: 4,
                         offset: Offset(0, 6), // Shadow position
                       ),
                     ],
@@ -39,8 +41,8 @@ class CategoriesList extends StatelessWidget {
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(15.0),
                       child: ColorFiltered(
-                        child: Image.network(
-                          genres[index].imageUrl,
+                        child: CachedNetworkImage(
+                          imageUrl: genres[index].imageUrl,
                           fit: BoxFit.cover,
                           height: 50,
                           width: 120,

@@ -23,10 +23,7 @@ class CarouselSliders extends StatelessWidget {
             aspectRatio: 2.0,
             enlargeCenterPage: true,
           ),
-          items: movies
-              .map((e) => CarouselItem(
-                  model: e, future: MoviesRepository().getPopularMovies()))
-              .toList(),
+          items: movies.map((e) => CarouselItem(model: e)).toList(),
         );
       });
 }

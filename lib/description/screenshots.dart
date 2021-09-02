@@ -1,40 +1,36 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/loading/loading_screenshots.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:moviego_repositories/movies_repository.dart';
 
 class Screenshots extends StatelessWidget {
-  final List screenshots;
-  final Future future;
+  final int modelId;
 
   const Screenshots({
-    required this.screenshots,
-    required this.future,
+    required this.modelId,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: future,
+      future: MoviesRepository().getBackdropsImages(modelId),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return Center(
             child: LoadingScreenshots(),
           );
         }
+        final movieImage = snapshot.data as List<String>;
         return Container(
           height: 170,
           child: ListView.builder(
-            itemCount: screenshots.length,
+            itemCount: movieImage.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return Column(children: <Widget>[
                 GestureDetector(
-                  // onTap: () {
-                  //   Route route = MaterialPageRoute(
-                  //       builder: (context) => DescriptionScreen());
-                  //   Navigator.push(context, route);
-                  // },
                   child: Container(
                       width: 200.0,
                       decoration: BoxDecoration(
@@ -52,8 +48,8 @@ class Screenshots extends StatelessWidget {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15.0),
-                        child: Image.network(
-                          screenshots[index],
+                        child: CachedNetworkImage(
+                          imageUrl: movieImage[index],
                           fit: BoxFit.cover,
                           width: 120,
                           height: 130,

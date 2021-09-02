@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/description/description_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -5,16 +6,14 @@ import 'package:moviego_models/movie_model.dart';
 
 class CarouselItem extends StatelessWidget {
   final MovieModel model;
-  final Future future;
-  const CarouselItem({Key? key, required this.model, required this.future})
-      : super(key: key);
+
+  const CarouselItem({Key? key, required this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           Route route = MaterialPageRoute(
               builder: (context) => DescriptionScreen(
-                    model: model,
-                    future: future,
+                    model: model.id,
                   ));
           Navigator.push(context, route);
         },
@@ -24,18 +23,19 @@ class CarouselItem extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: HexColor('#9b9b9b'),
-                blurRadius: 10,
-                offset: Offset(0, 12), // Shadow position
+                blurRadius: 8,
+                offset: Offset(0, 10), // Shadow position
               ),
             ],
           ),
-          margin: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 30),
+          margin: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 20),
           child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               child: Stack(
                 children: <Widget>[
-                  Image.network(
-                      'https://image.tmdb.org/t/p/original/${model.backdropPath}',
+                  CachedNetworkImage(
+                      imageUrl:
+                          'https://image.tmdb.org/t/p/original/${model.backdropPath}',
                       fit: BoxFit.cover,
                       width: 1000.0),
                   Positioned(

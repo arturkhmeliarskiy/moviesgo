@@ -1,3 +1,4 @@
+import 'package:moviego_services/data_models/movie_detail.dart';
 import 'package:moviego_services/data_models/movie_image.dart';
 
 import 'data_models/genre.dart';
@@ -30,8 +31,17 @@ class MoviesSevice {
   }
 
   Future<List<MovieData>> searchMovies(String query) async {
-    //TODO implement this
-    throw 'Not implemented';
+    try {
+      final response =
+          await _dio.get('$baseUrl/search/movie?$apiKey&query=$query');
+      var movies = response.data['results'] as List;
+      List<MovieData> movieList =
+          movies.map((m) => MovieData.fromJson(m)).toList();
+      return movieList;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
   }
 
   Future<List<MovieData>> getMoviesByGenreId(int genreId) async {
@@ -60,13 +70,40 @@ class MoviesSevice {
     }
   }
 
-  /*Future<MovieImage> getMovieImage(int movieId) async {
+  Future<MovieImage> getMovieImage(int movieId) async {
     try {
-      final response = await _dio.get('$baseUrl/movie/$movieId/images?$apiKey');
+      final response =
+          await _dio.get('$baseUrl/movie/${movieId.toString()}/images?$apiKey');
       return MovieImage.fromJson(response.data);
     } catch (error, stacktrace) {
       throw Exception(
           'Exception accoured: $error with stacktrace: $stacktrace');
     }
-  }*/
+  }
+
+  Future<MovieDetailData> getMovieDetail(int movieId) async {
+    try {
+      final response =
+          await _dio.get('$baseUrl/movie/${movieId.toString()}?$apiKey');
+      MovieDetailData movieDetail = MovieDetailData.fromJson(response.data);
+
+      movieDetail.trailerId = await getYoutubeId(movieId);
+
+      return movieDetail;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }
+
+  Future<String> getYoutubeId(int id) async {
+    try {
+      final response = await _dio.get('$baseUrl/movie/$id/videos?$apiKey');
+      var youtubeId = response.data['results'][0]['key'];
+      return youtubeId;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }
 }

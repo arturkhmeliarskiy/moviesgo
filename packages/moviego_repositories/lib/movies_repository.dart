@@ -2,8 +2,10 @@
 
 import 'package:moviego_models/genre_model.dart';
 import 'package:moviego_models/movie_model.dart';
+import 'package:moviego_models/movie_detail_model.dart';
 import 'package:moviego_services/data_models/genre.dart';
 import 'package:moviego_services/data_models/movie_data.dart';
+import 'package:moviego_services/data_models/movie_detail.dart';
 import 'package:moviego_services/moviego_services.dart';
 
 final _genreImagesMap = <int, String>{
@@ -66,6 +68,24 @@ class MoviesRepository {
     return movies.map((e) => e.toModel(_genres)).toList();
   }
 
+  Future<List<String>> getBackdropsImages(int id) async {
+    final images = await _service.getMovieImage(id);
+
+    return images.backdrops
+        .map((e) => 'https://image.tmdb.org/t/p/original/${e.imagePath}')
+        .toList();
+  }
+
+  Future<MovieDetailModel> getMovieDetail(int id) async {
+    final detail = await _service.getMovieDetail(id);
+    return detail.toModel();
+  }
+
+  Future<String> getYoutubeId(int id) async {
+    final video = await _service.getYoutubeId(id);
+    return video;
+  }
+
   Future<void> _updadeGenres() async {
     _genres = await getGenres();
   }
@@ -98,4 +118,23 @@ extension on Genre {
             'https://upload.wikimedia.org/wikipedia/commons/b/b8/P_culture_violet.png',
         id: id,
       );
+}
+
+extension on MovieDetailData {
+  MovieDetailModel toModel() => MovieDetailModel(
+      id: id,
+      title: title,
+      backdropPath: backdropPath,
+      posterpath: posterpath,
+      genres: genres,
+      trailerId: trailerId,
+      budget: budget,
+      homePage: homePage,
+      originalTitle: originalTitle,
+      overview: overview,
+      releaseDate: DateTime.tryParse(releaseDate),
+      runtime: runtime,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
+      productionCountries: productionCountries);
 }

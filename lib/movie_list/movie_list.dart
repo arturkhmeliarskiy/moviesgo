@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/loading/loading_movie_list.dart';
@@ -25,19 +26,18 @@ class MovieList extends StatelessWidget {
         }
         final mylist = snapshot.data as List<MovieModel>;
         return Container(
-          height: 240,
+          height: 220,
           // color: HexColor('#c42a2a'),
           child: ListView.builder(
             itemCount: mylist.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              final ratings = mylist[index].popularity;
               return Column(children: <Widget>[
                 GestureDetector(
                   onTap: () {
                     Route route = MaterialPageRoute(
-                        builder: (context) => DescriptionScreen(
-                            model: mylist[index], future: future));
+                        builder: (context) =>
+                            DescriptionScreen(model: mylist[index].id));
                     Navigator.push(context, route);
                   },
                   child: Container(
@@ -57,8 +57,9 @@ class MovieList extends StatelessWidget {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15.0),
-                        child: Image.network(
-                          'https://image.tmdb.org/t/p/original/${mylist[index].posterPath}',
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://image.tmdb.org/t/p/original/${mylist[index].posterPath}',
                           fit: BoxFit.cover,
                           width: 120,
                           height: 150,
@@ -69,7 +70,7 @@ class MovieList extends StatelessWidget {
                   width: 120.0,
                   margin: EdgeInsets.only(
                     top: 10,
-                    left: 40,
+                    left: 42,
                   ),
                   child: Text(
                     mylist[index].title,
@@ -78,17 +79,19 @@ class MovieList extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 100,
+                  width: 120,
                   height: 20,
                   margin: EdgeInsets.only(
-                    top: 5,
-                    left: 20,
+                    top: 0,
+                    left: 40,
                   ),
                   child: StarRating(
-                    rating: ratings,
+                    rating: double.parse(mylist[index].voteAverage) / 2,
                     iconSize: 16.0,
                     icon: Icons.star,
                     icon2: Icons.star_border,
+                    fontSizes: 14,
+                    marginLeft: 4,
                   ),
                 )
               ]);

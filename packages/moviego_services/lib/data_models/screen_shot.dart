@@ -1,9 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import 'movie_image.dart';
-
 class Screenshot extends Equatable {
-  final String aspect;
+  final double aspect;
   final String imagePath;
   final int height;
   final int width;
@@ -12,7 +10,7 @@ class Screenshot extends Equatable {
   final int voteCount;
 
   Screenshot(
-      {this.aspect = '',
+      {this.aspect = 0,
       this.imagePath = '',
       this.height = 0,
       this.width = 0,
@@ -21,19 +19,20 @@ class Screenshot extends Equatable {
       this.voteCount = 0});
 
   factory Screenshot.fromJson(Map<String, dynamic> json) {
+    // ignore: unnecessary_null_comparison
     if (json == null) {
       return Screenshot();
     }
 
     return Screenshot(
-        aspect: json['aspect_ratio']
-            .toString(), //double.tryParse(json['aspect_ratio'])?.toString() ?? 1.0,
-        imagePath: json['file_path'],
-        height: json['height'],
-        width: json['width'],
-        countryCode: json['iso_639_1'],
-        voteAverage: json['vote_average'],
-        voteCount: json['vote_count']);
+      aspect: json['aspect_ratio'] ?? 0,
+      imagePath: json['file_path'] ?? '',
+      height: json['height'] ?? 0,
+      width: json['width'] ?? 0,
+      countryCode: json['iso_639_1'] ?? '',
+      voteAverage: json['vote_average'] ?? 0,
+      voteCount: json['vote_count'] ?? 0,
+    );
   }
 
   @override

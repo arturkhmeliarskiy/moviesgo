@@ -1,13 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:moviego_repositories/movies_repository.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CoverMovie extends StatelessWidget {
+  final String trailerId;
   final String images;
   final IconData icon;
   final IconData icon2;
 
   const CoverMovie({
+    required this.trailerId,
     required this.images,
     this.icon = Icons.add_outlined,
     this.icon2 = Icons.share_outlined,
@@ -41,15 +46,16 @@ class CoverMovie extends StatelessWidget {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.red,
+                          color: Colors.grey,
                           blurRadius: 4,
                           offset: Offset(4, 8), // Shadow position
                         ),
                       ],
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              'https://image.tmdb.org/t/p/original/$images')),
+                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: 'https://image.tmdb.org/t/p/original/$images',
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
                     ),
                   ),
                 ),
@@ -72,18 +78,27 @@ class CoverMovie extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child:
-                        Stack(alignment: Alignment.center, children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50.0),
-                        child: Container(
-                          width: 90,
-                          height: 90,
+                    child: GestureDetector(
+                      onTap: () async {
+                        final youtubeUrl =
+                            'https://www.youtube.com/embed/${trailerId}';
+                        if (await canLaunch(youtubeUrl)) {
+                          await launch(youtubeUrl);
+                        }
+                      },
+                      child:
+                          Stack(alignment: Alignment.center, children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Container(
+                            width: 90,
+                            height: 90,
+                          ),
                         ),
-                      ),
-                      Icon(Icons.play_arrow,
-                          color: new Color(0xffd60506), size: 50.0),
-                    ]),
+                        Icon(Icons.play_arrow,
+                            color: new Color(0xffd60506), size: 50.0),
+                      ]),
+                    ),
                   ),
                 )),
             Container(
