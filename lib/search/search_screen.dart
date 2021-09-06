@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/description/description_screen.dart';
-import 'package:flutter_app/search/MovieLists.dart';
+import 'package:flutter_app/search/movie_lists.dart';
 import 'package:moviego_models/movie_model.dart';
 import 'package:moviego_repositories/movies_repository.dart';
 
@@ -44,8 +44,22 @@ class SearchScreen extends State<Search> {
             child: Row(children: <Widget>[
               Flexible(
                 child: TextField(
+                  onSubmitted: (value) {
+                    setState(() {
+                      //Set the state with the new value so that the widget will re render
+                      searchText = searchTextController.text;
+                      //Hide keyboard when the state is set
+                      SystemChannels.textInput.invokeMethod('TextInput.hide');
+                    });
+                  },
                   controller: searchTextController,
-                  decoration: InputDecoration(hintText: 'Search movie'),
+                  decoration: InputDecoration(
+                    hintText: 'Search movie',
+                    suffixIcon: IconButton(
+                      onPressed: searchTextController.clear,
+                      icon: Icon(Icons.clear),
+                    ),
+                  ),
                 ),
               ),
               IconButton(

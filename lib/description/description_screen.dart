@@ -10,7 +10,6 @@ import 'package:flutter_app/header_title/header_title.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_detail_model.dart';
-
 import 'package:moviego_repositories/movies_repository.dart';
 
 class DescriptionScreen extends StatelessWidget {
@@ -31,7 +30,9 @@ class DescriptionScreen extends StatelessWidget {
             return Column(
               children: [
                 CoverMovie(
-                    images: mylist.posterpath, trailerId: mylist.trailerId),
+                    images: mylist.posterpath,
+                    trailerId: mylist.trailerId,
+                    mylist: mylist),
                 Container(
                     margin: EdgeInsets.only(left: 0, top: 20),
                     child: Center(

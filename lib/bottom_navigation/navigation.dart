@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/home/home.dart';
+import 'package:flutter_app/my_list/my_list.dart';
 import 'package:flutter_app/search/search_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -16,10 +17,7 @@ class _Navigation extends State<Navigation> {
   List<Widget> _widgetOptions = <Widget>[
     Home(),
     Search(),
-    Text(
-      'Index 2: School',
-      // style: optionStyle,
-    ),
+    MyList(),
     Text(
       'Index 3: School',
       // style: optionStyle,

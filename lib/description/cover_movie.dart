@@ -2,22 +2,47 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:moviego_repositories/movies_repository.dart';
+import 'package:moviego_models/movie_detail_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:convert';
 
 class CoverMovie extends StatelessWidget {
   final String trailerId;
   final String images;
   final IconData icon;
   final IconData icon2;
+  final MovieDetailModel mylist;
 
   const CoverMovie({
     required this.trailerId,
     required this.images,
+    required this.mylist,
     this.icon = Icons.add_outlined,
     this.icon2 = Icons.share_outlined,
     Key? key,
   }) : super(key: key);
+
+  Map toJson() => {
+        'id': mylist.id,
+        'title': mylist.title,
+        'posterpath': mylist.posterpath,
+        'voteAverage': mylist.voteAverage,
+        'genres': mylist.genres,
+      };
+
+  _getResult() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jsonUser = jsonEncode(toJson());
+    prefs.setString('key', jsonUser + ',$jsonUser');
+    print(prefs.getString('key'));
+  }
+
+  _getRemove() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('key');
+    print(prefs.remove('key'));
+  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -116,7 +141,7 @@ class CoverMovie extends StatelessWidget {
                         color: HexColor('#242757'),
                         size: 30,
                       ),
-                      onPressed: () {},
+                      onPressed: _getResult,
                     ),
                     IconButton(
                       icon: Icon(
@@ -124,7 +149,7 @@ class CoverMovie extends StatelessWidget {
                         color: HexColor('#242757'),
                         size: 30,
                       ),
-                      onPressed: () {},
+                      onPressed: _getRemove,
                     ),
                   ],
                 ),
