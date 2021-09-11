@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_detail_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:moviego_services/database.dart';
+import 'package:moviego_services/data_models/my_lists.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:convert';
 
-class CoverMovie extends StatelessWidget {
+class CoverMovie extends StatefulWidget {
   final String trailerId;
   final String images;
   final IconData icon;
@@ -22,26 +22,21 @@ class CoverMovie extends StatelessWidget {
     this.icon2 = Icons.share_outlined,
     Key? key,
   }) : super(key: key);
+  @override
+  _CoverMovie createState() => _CoverMovie();
+}
 
-  Map toJson() => {
-        'id': mylist.id,
-        'title': mylist.title,
-        'posterpath': mylist.posterpath,
-        'voteAverage': mylist.voteAverage,
-        'genres': mylist.genres,
-      };
+class _CoverMovie extends State<CoverMovie> {
+  late MyLists movie;
 
-  _getResult() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String jsonUser = jsonEncode(toJson());
-    prefs.setString('key', jsonUser + ',$jsonUser');
-    print(prefs.getString('key'));
-  }
-
-  _getRemove() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('key');
-    print(prefs.remove('key'));
+  @override
+  void initState() {
+    super.initState();
+    movie = MyLists(
+        id: widget.mylist.id,
+        title: widget.mylist.title,
+        posterpath: widget.mylist.posterpath,
+        voteAverage: widget.mylist.voteAverage);
   }
 
   @override
@@ -78,7 +73,8 @@ class CoverMovie extends StatelessWidget {
                       ],
                     ),
                     child: CachedNetworkImage(
-                      imageUrl: 'https://image.tmdb.org/t/p/original/$images',
+                      imageUrl:
+                          'https://image.tmdb.org/t/p/original/${widget.images}',
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
                     ),
@@ -106,7 +102,7 @@ class CoverMovie extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () async {
                         final youtubeUrl =
-                            'https://www.youtube.com/embed/${trailerId}';
+                            'https://www.youtube.com/embed/${widget.trailerId}';
                         if (await canLaunch(youtubeUrl)) {
                           await launch(youtubeUrl);
                         }
@@ -137,19 +133,26 @@ class CoverMovie extends StatelessWidget {
                   children: <Widget>[
                     IconButton(
                       icon: Icon(
-                        icon,
+                        // DBProvider.db.getMovie(widget.mylist.id) == null
+                        //     ?
+                        widget.icon,
+                        // : Icons.check_sharp,
                         color: HexColor('#242757'),
                         size: 30,
                       ),
-                      onPressed: _getResult,
+                      onPressed: () async {
+                        await DBProvider.db.addMovie(movie);
+                        setState(() {});
+                      },
+                      //  async { await DBProvider.db.addMovie(testClients)},
                     ),
                     IconButton(
                       icon: Icon(
-                        icon2,
+                        widget.icon2,
                         color: HexColor('#242757'),
                         size: 30,
                       ),
-                      onPressed: _getRemove,
+                      onPressed: () {},
                     ),
                   ],
                 ),

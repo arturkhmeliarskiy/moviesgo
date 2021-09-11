@@ -38,7 +38,8 @@ class DescriptionScreen extends StatelessWidget {
                     child: Center(
                       child: Column(
                         children: [
-                          MovieNems(name: mylist.title),
+                          Container(
+                              width: 350, child: MovieNems(name: mylist.title)),
                           GenneMovie(nameGenre: mylist.genres),
                           Container(
                             margin: EdgeInsets.only(top: 10),

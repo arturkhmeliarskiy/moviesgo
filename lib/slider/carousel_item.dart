@@ -34,10 +34,13 @@ class CarouselItem extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   CachedNetworkImage(
-                      imageUrl:
-                          'https://image.tmdb.org/t/p/original/${model.backdropPath}',
-                      fit: BoxFit.cover,
-                      width: 1000.0),
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/original/${model.backdropPath}',
+                    fit: BoxFit.cover,
+                    width: 1000.0,
+                    fadeInDuration: Duration.zero,
+                    fadeOutDuration: Duration.zero,
+                  ),
                   Positioned(
                     bottom: 0.0,
                     left: 0.0,

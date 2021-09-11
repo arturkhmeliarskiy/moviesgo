@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/category/categories_list.dart';
 import 'package:flutter_app/header_title/header_title.dart';
 import 'package:flutter_app/movie_list/movie_list.dart';
+import 'package:flutter_app/my_list/my_list_home.dart';
 import 'package:flutter_app/slider/carousel_sliders.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/genre_model.dart';
 import 'package:moviego_repositories/movies_repository.dart';
+import 'package:moviego_services/database.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -25,8 +27,8 @@ class Home extends StatelessWidget {
         },
       ),
       HeaderTitle(title: 'My list'),
-      MovieList(
-        future: MoviesRepository().getPopularMovies(),
+      MyListHome(
+        future: DBProvider.db.getAllMovie(),
       ),
       HeaderTitle(title: 'Comedy'),
       MovieList(

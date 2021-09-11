@@ -24,7 +24,7 @@ class CategoriesMovie extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             name,
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: HexColor('#242757')),
           ),
           iconTheme: IconThemeData(
             color: Colors.black, //change your color here
@@ -82,35 +82,40 @@ class CategoriesMovie extends StatelessWidget {
                                     ),
                                   )),
                             ),
-                            Column(
-                              children: [
-                                Container(
-                                  width: 120.0,
-                                  margin: EdgeInsets.only(left: 35),
-                                  child: Text(
-                                    mylist[index].title,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: HexColor('#161616')),
-                                    maxLines: 2,
+                            Container(
+                              width: 190,
+                              margin: EdgeInsets.only(left: 15),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 180.0,
+                                    margin: EdgeInsets.only(left: 35),
+                                    child: Text(
+                                      mylist[index].title,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: HexColor('#242757')),
+                                      maxLines: 2,
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  width: 120,
-                                  height: 20,
-                                  margin: EdgeInsets.only(left: 35),
-                                  child: StarRating(
-                                    rating: double.parse(
-                                            mylist[index].voteAverage) /
-                                        2,
-                                    iconSize: 16.0,
-                                    icon: Icons.star,
-                                    icon2: Icons.star_border,
-                                    fontSizes: 14,
-                                    marginLeft: 4,
+                                  Container(
+                                    width: 120,
+                                    height: 20,
+                                    margin: EdgeInsets.only(left: 0),
+                                    child: StarRating(
+                                      rating: double.parse(
+                                              mylist[index].voteAverage) /
+                                          2,
+                                      iconSize: 16.0,
+                                      icon: Icons.star,
+                                      icon2: Icons.star_border,
+                                      fontSizes: 14,
+                                      marginLeft: 4,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         )

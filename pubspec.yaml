@@ -24,12 +24,6 @@ dependencies:
   shared_preferences: 2.0.7
   dio: 4.0.0
   intl: 0.17.0
-  sqflite:
-    git:
-      url: https://www.github.com/davidmartos96/sqflite_sqlcipher.git
-      path: sqflite
-      ref: 0eff382dcc45322edfa94d222cadf3e28fc5a95a
-  path_provider: 2.0.3
   moviego_models:
     path: packages/moviego_models
   moviego_repositories:
