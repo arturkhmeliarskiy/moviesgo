@@ -61,7 +61,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   Text(
                     genres[index].name,
-                    style: TextStyle(fontSize: 17, color: HexColor('#f4f4ff')),
+                    style: TextStyle(fontSize: 17, color: HexColor('#fcfcfc')),
                   )
                 ]),
               ),

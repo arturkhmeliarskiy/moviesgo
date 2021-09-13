@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_detail_model.dart';
 import 'package:moviego_services/database.dart';
-import 'package:moviego_services/data_models/my_lists.dart';
+import 'package:moviego_services/data_models/db_movie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CoverMovie extends StatefulWidget {
@@ -27,12 +27,12 @@ class CoverMovie extends StatefulWidget {
 }
 
 class _CoverMovie extends State<CoverMovie> {
-  late MyLists movie;
+  late DBMovie movie;
 
   @override
   void initState() {
     super.initState();
-    movie = MyLists(
+    movie = DBMovie(
         id: widget.mylist.id,
         title: widget.mylist.title,
         posterpath: widget.mylist.posterpath,

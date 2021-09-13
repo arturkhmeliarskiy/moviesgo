@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:moviego_services/data_models/my_lists.dart';
+import 'package:moviego_services/data_models/db_movie.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -30,7 +30,7 @@ class DBProvider {
     });
   }
 
-  addMovie(MyLists movie) async {
+  addMovie(DBMovie movie) async {
     final db = await database;
     var raw = await db.rawInsert(
         "INSERT Into MY_LIST (id ,title ,posterpath ,voteAverage )"
@@ -39,9 +39,9 @@ class DBProvider {
     return raw;
   }
 
-  blockOrUnblock(MyLists movie) async {
+  blockOrUnblock(DBMovie movie) async {
     final db = await database;
-    MyLists blocked = MyLists(
+    DBMovie blocked = DBMovie(
         id: movie.id,
         title: movie.title,
         posterpath: movie.posterpath,
@@ -51,7 +51,7 @@ class DBProvider {
     return res;
   }
 
-  updateMovie(MyLists movie) async {
+  updateMovie(DBMovie movie) async {
     final db = await database;
     var res = await db.update("MY_LIST", movie.toMap(),
         where: "id = ?", whereArgs: [movie.id]);
@@ -61,14 +61,14 @@ class DBProvider {
   getMovie(int id) async {
     final db = await database;
     var res = await db.query("MY_LIST", where: "id = ?", whereArgs: [id]);
-    return res.isNotEmpty ? MyLists.fromMap(res.first) : null;
+    return res.isNotEmpty ? DBMovie.fromMap(res.first) : null;
   }
 
-  Future<List<MyLists>> getAllMovie() async {
+  Future<List<DBMovie>> getAllMovie() async {
     final db = await database;
     var res = await db.query("MY_LIST");
-    List<MyLists> list =
-        res.isNotEmpty ? res.map((c) => MyLists.fromMap(c)).toList() : [];
+    List<DBMovie> list =
+        res.isNotEmpty ? res.map((c) => DBMovie.fromMap(c)).toList() : [];
     return list;
   }
 

@@ -6,6 +6,7 @@ import 'package:moviego_models/movie_detail_model.dart';
 import 'package:moviego_services/data_models/genre.dart';
 import 'package:moviego_services/data_models/movie_data.dart';
 import 'package:moviego_services/data_models/movie_detail.dart';
+import 'package:moviego_services/database.dart';
 import 'package:moviego_services/moviego_services.dart';
 
 final _genreImagesMap = <int, String>{
@@ -43,17 +44,35 @@ class MoviesRepository {
 
   Future<List<MovieModel>> getPopularMovies() async {
     final movies = await _service.getPopularMovies();
-
     await _updadeGenres();
-
     return movies.map((e) => e.toModel(_genres)).toList();
   }
 
   Future<List<MovieModel>> searchMovies(String query) async {
     final movies = await _service.searchMovies(query);
     await _updadeGenres();
-
     return movies.map((e) => e.toModel(_genres)).toList();
+  }
+
+  Future<List<MovieModel>> getMyMovie() async {
+    final tt = await DBProvider.db.getAllMovie();
+    return tt
+        .map((e) => MovieModel(
+              id: e.id,
+              title: e.title,
+              posterPath: e.posterpath,
+              voteAverage: e.voteAverage.toString(),
+              backdropPath: '',
+              genres: [],
+              originalLanguage: '',
+              originalTitle: '',
+              overview: '',
+              popularity: 0,
+              releaseDate: '',
+              video: false,
+              voteCount: 0,
+            ))
+        .toList();
   }
 
   Future<List<GenreModel>> getGenres() async {
@@ -64,13 +83,11 @@ class MoviesRepository {
   Future<List<MovieModel>> getMoviesByGenreId(int id) async {
     final movies = await _service.getMoviesByGenreId(id);
     await _updadeGenres();
-
     return movies.map((e) => e.toModel(_genres)).toList();
   }
 
   Future<List<String>> getBackdropsImages(int id) async {
     final images = await _service.getMovieImage(id);
-
     return images.backdrops
         .map((e) => 'https://image.tmdb.org/t/p/original/${e.imagePath}')
         .toList();

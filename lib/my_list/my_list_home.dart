@@ -1,14 +1,16 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:moviego_services/data_models/my_lists.dart';
+import 'package:moviego_models/movie_model.dart';
 
 import '../description/description_screen.dart';
 
 class MyListHome extends StatelessWidget {
-  final List<MyLists> myMovies;
+  final List<MovieModel> myMovies;
 
   const MyListHome({
     required this.myMovies,
@@ -17,46 +19,41 @@ class MyListHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: 220,
+        height: myMovies.length == 0 ? 150 : 200,
         child: myMovies.length == 0
-            ? Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 36.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey,
+            ? Container(
+                height: 150,
+                width: 450,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(alignment: Alignment.center, children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 48),
+                        child: Container(
+                            height: 165,
+                            width: 110,
+                            child: Image.asset('assets/images/film.png')),
                       ),
-                      width: 120,
-                      height: 150,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 40.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey,
+                    ]),
+                    Stack(alignment: Alignment.center, children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 49),
+                        child: Container(
+                            height: 165,
+                            width: 110,
+                            child: Image.asset('assets/images/film.png')),
                       ),
-                      width: 120,
-                      height: 150,
+                    ]),
+                    Padding(
+                      padding: EdgeInsets.only(left: 39),
+                      child: Container(
+                          height: 165,
+                          width: 55,
+                          child: Image.asset('assets/images/film2.png')),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 40.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20)),
-                        color: Colors.grey,
-                      ),
-                      width: 55,
-                      height: 150,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               )
             : ListView.builder(
                 itemCount: myMovies.length,
@@ -89,7 +86,7 @@ class MyListHome extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.0),
                             child: CachedNetworkImage(
                               imageUrl:
-                                  'https://image.tmdb.org/t/p/original/${myMovies[index].posterpath}',
+                                  'https://image.tmdb.org/t/p/original/${myMovies[index].posterPath}',
                               fit: BoxFit.cover,
                               width: 120,
                               height: 150,
@@ -106,7 +103,7 @@ class MyListHome extends StatelessWidget {
                         myMovies[index].title,
                         style:
                             TextStyle(fontSize: 15, color: HexColor('#161616')),
-                        maxLines: 2,
+                        maxLines: 1,
                       ),
                     ),
                     Container(
@@ -117,7 +114,7 @@ class MyListHome extends StatelessWidget {
                         left: 40,
                       ),
                       child: StarRating(
-                        rating: myMovies[index].voteAverage / 2,
+                        rating: double.parse(myMovies[index].voteAverage) / 2,
                         iconSize: 16.0,
                         icon: Icons.star,
                         icon2: Icons.star_border,

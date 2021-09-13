@@ -41,7 +41,6 @@ class _HomeState extends State<Home> {
           if (state is HomeLoadingState) {
             return CircularProgressIndicator();
           }
-
           if (state is HomeLoadedState) {
             return Container(
               color: HexColor('#f4f4f4'),

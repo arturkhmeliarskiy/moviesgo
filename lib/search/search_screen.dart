@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_app/blocs/search_bloc/search_bloc.dart';
 import 'package:flutter_app/description/description_screen.dart';
 import 'package:flutter_app/search/movie_lists.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviego_models/movie_model.dart';
-import 'package:moviego_repositories/movies_repository.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class Search extends StatefulWidget {
 }
 
 class SearchScreen extends State<Search> {
-  String searchText = "";
+  final SearchBloc _bloc = SearchBloc();
   final searchTextController = new TextEditingController();
 
   @override
@@ -37,7 +37,7 @@ class SearchScreen extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: EdgeInsets.only(top: 25),
       child: Column(
         children: <Widget>[
           Container(
@@ -45,12 +45,7 @@ class SearchScreen extends State<Search> {
               Flexible(
                 child: TextField(
                   onSubmitted: (value) {
-                    setState(() {
-                      //Set the state with the new value so that the widget will re render
-                      searchText = searchTextController.text;
-                      //Hide keyboard when the state is set
-                      SystemChannels.textInput.invokeMethod('TextInput.hide');
-                    });
+                    _bloc.add(SearchInitializeEvent(value));
                   },
                   controller: searchTextController,
                   decoration: InputDecoration(
@@ -65,36 +60,30 @@ class SearchScreen extends State<Search> {
               IconButton(
                 icon: Icon(Icons.search),
                 tooltip: 'Search Movies',
-                onPressed: () {
-                  setState(() {
-                    //   //Set the state with the new value so that the widget will re render
-                    searchText = searchTextController.text;
-                    //   //Hide keyboard when the state is set
-                    SystemChannels.textInput.invokeMethod('TextInput.hide');
-                  });
-                },
+                onPressed: () {},
               ),
             ]),
             padding: EdgeInsets.all(10),
           ),
-          //Only send the service request if the keyword is not empty
-          if (searchText.length > 0)
-            //A future builder to render the
-            FutureBuilder<List<MovieModel>>(
-                //Initiate the service request
-                future: MoviesRepository().searchMovies(searchText),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final mylist = snapshot.data as List<MovieModel>;
-                    //if the response has data render the movie list
-                    return Expanded(child: MovieLists(mylist: mylist));
-                  } else if (snapshot.hasError) {
-                    //if there is an error show the error message
-                    return Text("${snapshot.error}");
-                  }
-                  //if the service call is in progress show the progress indicator
-                  return CircularProgressIndicator();
-                }),
+          BlocBuilder<SearchBloc, SearchState>(
+            bloc: _bloc,
+            builder: (context, state) {
+              if (state is SearchStateLoadingState) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is SearchStateErrorState) {
+                return Container(
+                  child: Text('Error'),
+                );
+              }
+              if (state is SearchStateSuccessState) {
+                return MovieLists(mylist: state.searchMovies);
+              }
+              return SizedBox();
+            },
+          ),
         ],
       ),
     ));

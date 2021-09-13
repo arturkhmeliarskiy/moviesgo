@@ -1,28 +1,28 @@
 import 'dart:convert';
 
-MyLists movieFromJson(String str) {
+DBMovie movieFromJson(String str) {
   final jsonData = json.decode(str);
-  return MyLists.fromMap(jsonData);
+  return DBMovie.fromMap(jsonData);
 }
 
-String movieToJson(MyLists data) {
+String movieToJson(DBMovie data) {
   final dyn = data.toMap();
   return json.encode(dyn);
 }
 
-class MyLists {
+class DBMovie {
   int id;
   String title;
   String posterpath;
   double voteAverage;
 
-  MyLists(
+  DBMovie(
       {this.id = 0,
       this.title = '',
       this.posterpath = '',
       this.voteAverage = 0});
 
-  factory MyLists.fromMap(Map<String, dynamic> json) => new MyLists(
+  factory DBMovie.fromMap(Map<String, dynamic> json) => new DBMovie(
         id: json["id"] ?? 0,
         title: json["title"] ?? '',
         posterpath: json["posterpath"] ?? '',
