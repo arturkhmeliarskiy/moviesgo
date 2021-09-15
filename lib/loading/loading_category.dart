@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/loading/loading_movie.dart';
 
 class LoadingCategory extends StatefulWidget {
+  final num n;
+  const LoadingCategory({Key? key, required this.n}) : super(key: key);
   @override
   LoadingCollectionState createState() => LoadingCollectionState();
 }
@@ -30,46 +33,10 @@ class LoadingCollectionState extends State<LoadingCategory>
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: alpha,
-      child: Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 36.0, top: 31),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.grey,
-              ),
-              width: 120,
-              height: 50,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 40.0, top: 30),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.grey,
-              ),
-              width: 120,
-              height: 50,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 40.0, top: 30),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20)),
-                color: Colors.grey,
-              ),
-              width: 55,
-              height: 50,
-            ),
-          ),
-        ],
-      ),
-    );
+        opacity: alpha,
+        child: SingleChildScrollView(
+            child: Column(children: [
+          LoadingMovie(n: widget.n),
+        ])));
   }
 }

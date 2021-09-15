@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/my_list_blloc/my_list_bloc.dart';
 import 'package:flutter_app/description/description_screen.dart';
+import 'package:flutter_app/loading/loading_category.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:moviego_services/database.dart';
 
 class MyList extends StatefulWidget {
   @override
@@ -15,12 +15,12 @@ class MyList extends StatefulWidget {
 class _MyList extends State<MyList> {
   final MyListBloc _bloc = MyListBloc();
   Widget build(BuildContext context) {
-    _bloc.add(MyListInitializeEvent());
+    _bloc.add(MyListInitializeEvent(0));
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'My list',
-          style: TextStyle(color: HexColor('#242757')),
+          style: TextStyle(color: HexColor('#4b1d97')),
         ),
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
@@ -34,7 +34,7 @@ class _MyList extends State<MyList> {
         builder: (context, state) {
           if (state is MyListLoadingState) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: LoadingCategory(n: 5),
             );
           }
           if (state is MyListStateSuccessState) {
@@ -52,7 +52,7 @@ class _MyList extends State<MyList> {
                             onTap: () {
                               Route route = MaterialPageRoute(
                                   builder: (context) => DescriptionScreen(
-                                      model: state.myListMovie[index].id));
+                                      id: state.myListMovie[index].id));
                               Navigator.push(context, route);
                             },
                             child: Container(
@@ -119,9 +119,10 @@ class _MyList extends State<MyList> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () async {
-                                  await DBProvider.db
-                                      .deleteMovie(state.myListMovie[index].id);
+                                onPressed: () {
+                                  _bloc.add(MyListInitializeEvent(
+                                      state.myListMovie[index].id));
+                                  setState(() {});
                                 },
                                 icon: Icon(
                                   Icons.delete,

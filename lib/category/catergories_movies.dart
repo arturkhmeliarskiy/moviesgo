@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/catergories_bloc/catergories_bloc.dart';
 import 'package:flutter_app/description/description_screen.dart';
+import 'package:flutter_app/loading/loading_category.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -46,7 +47,9 @@ class _CategoriesMovieState extends State<CategoriesMovie> {
         builder: (context, state) {
           if (state is CategoriesStateLoadingState) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: LoadingCategory(
+                n: 5,
+              ),
             );
           }
           if (state is CategoriesStateSuccessState) {
@@ -64,7 +67,7 @@ class _CategoriesMovieState extends State<CategoriesMovie> {
                                 onTap: () {
                                   Route route = MaterialPageRoute(
                                       builder: (context) => DescriptionScreen(
-                                          model: state.searchMovies[index].id));
+                                          id: state.searchMovies[index].id));
                                   Navigator.push(context, route);
                                 },
                                 child: Container(

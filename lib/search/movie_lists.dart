@@ -29,7 +29,7 @@ class MovieLists extends StatelessWidget {
                         onTap: () {
                           Route route = MaterialPageRoute(
                               builder: (context) =>
-                                  DescriptionScreen(model: mylist[index].id));
+                                  DescriptionScreen(id: mylist[index].id));
                           Navigator.push(context, route);
                         },
                         child: Container(

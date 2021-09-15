@@ -13,7 +13,7 @@ class CarouselItem extends StatelessWidget {
         onTap: () {
           Route route = MaterialPageRoute(
               builder: (context) => DescriptionScreen(
-                    model: model.id,
+                    id: model.id,
                   ));
           Navigator.push(context, route);
         },

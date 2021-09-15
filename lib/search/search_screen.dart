@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/search_bloc/search_bloc.dart';
 import 'package:flutter_app/description/description_screen.dart';
+import 'package:flutter_app/loading/loading_category.dart';
 import 'package:flutter_app/search/movie_lists.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_model.dart';
 
 class Search extends StatefulWidget {
@@ -28,7 +30,7 @@ class SearchScreen extends State<Search> {
       context,
       MaterialPageRoute(
           builder: (context) => DescriptionScreen(
-                model: item.id,
+                id: item.id,
               )),
     );
   }
@@ -58,7 +60,10 @@ class SearchScreen extends State<Search> {
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.search),
+                icon: Icon(
+                  Icons.search,
+                  color: HexColor('#4b1d97'),
+                ),
                 tooltip: 'Search Movies',
                 onPressed: () {},
               ),
@@ -70,7 +75,7 @@ class SearchScreen extends State<Search> {
             builder: (context, state) {
               if (state is SearchStateLoadingState) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: LoadingCategory(n: 5),
                 );
               }
               if (state is SearchStateErrorState) {

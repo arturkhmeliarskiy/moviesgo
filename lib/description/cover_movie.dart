@@ -1,16 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/youtube_player/youtube_player.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_detail_model.dart';
 import 'package:moviego_services/database.dart';
 import 'package:moviego_services/data_models/db_movie.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CoverMovie extends StatefulWidget {
   final String trailerId;
   final String images;
   final IconData icon;
+  final int id;
+  final int switches;
   final IconData icon2;
   final MovieDetailModel mylist;
 
@@ -18,10 +21,13 @@ class CoverMovie extends StatefulWidget {
     required this.trailerId,
     required this.images,
     required this.mylist,
+    this.id = 0,
+    required this.switches,
     this.icon = Icons.add_outlined,
     this.icon2 = Icons.share_outlined,
     Key? key,
   }) : super(key: key);
+
   @override
   _CoverMovie createState() => _CoverMovie();
 }
@@ -38,6 +44,19 @@ class _CoverMovie extends State<CoverMovie> {
         posterpath: widget.mylist.posterpath,
         voteAverage: widget.mylist.voteAverage);
   }
+
+  void share(String url) {
+    String message = 'Link to the trailer $url';
+    RenderBox? box = context.findRenderObject() as RenderBox;
+
+    Share.share(message,
+        subject: 'Description',
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
+
+  bool select = false;
+  bool selected() => widget.id == widget.switches ? true : false;
+  get selecteds => selected();
 
   @override
   Widget build(BuildContext context) => Container(
@@ -100,12 +119,13 @@ class _CoverMovie extends State<CoverMovie> {
                       ],
                     ),
                     child: GestureDetector(
-                      onTap: () async {
-                        final youtubeUrl =
-                            'https://www.youtube.com/embed/${widget.trailerId}';
-                        if (await canLaunch(youtubeUrl)) {
-                          await launch(youtubeUrl);
-                        }
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => YPlay(
+                                      id: widget.trailerId,
+                                    )));
                       },
                       child:
                           Stack(alignment: Alignment.center, children: <Widget>[
@@ -133,26 +153,36 @@ class _CoverMovie extends State<CoverMovie> {
                   children: <Widget>[
                     IconButton(
                       icon: Icon(
-                        // DBProvider.db.getMovie(widget.mylist.id) == null
-                        //     ?
-                        widget.icon,
+                        selecteds
+                            ? select
+                                ? widget.icon
+                                : Icons.check_sharp
+                            : select
+                                ? Icons.check_sharp
+                                : widget.icon,
                         // : Icons.check_sharp,
-                        color: HexColor('#242757'),
+                        color: HexColor('#4b1d97'),
                         size: 30,
                       ),
-                      onPressed: () async {
-                        await DBProvider.db.addMovie(movie);
-                        setState(() {});
+                      onPressed: () {
+                        selecteds
+                            ? DBProvider.db.deleteMovie(widget.id)
+                            : DBProvider.db.addMovie(movie);
+                        setState(() {
+                          // ignore: unnecessary_statements
+                          selecteds != selecteds;
+                          select = !select;
+                        });
                       },
                       //  async { await DBProvider.db.addMovie(testClients)},
                     ),
                     IconButton(
                       icon: Icon(
                         widget.icon2,
-                        color: HexColor('#242757'),
+                        color: HexColor('#4b1d97'),
                         size: 30,
                       ),
-                      onPressed: () {},
+                      onPressed: () => share(widget.mylist.homePage),
                     ),
                   ],
                 ),
@@ -162,8 +192,6 @@ class _CoverMovie extends State<CoverMovie> {
         ),
       );
 }
-
-class FontAwesomeIcons {}
 
 class ClippingClass extends CustomClipper<Path> {
   @override

@@ -13,7 +13,7 @@ class MovieNems extends StatelessWidget {
   Widget build(BuildContext context) => Text(
         name,
         style: TextStyle(
-          color: HexColor('#242757'),
+          color: HexColor('#4b1d97'),
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),

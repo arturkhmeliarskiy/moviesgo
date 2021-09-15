@@ -48,7 +48,7 @@ class MovieDetailData {
         genres: json['genres'] ?? [],
         productionCountries: json['production_countries'] ?? [],
         budget: json['budget'] ?? 0,
-        homePage: json['home_page'] ?? '',
+        homePage: json['homepage'] ?? '',
         originalTitle: json['original_title'] ?? '',
         overview: json['overview'] ?? '',
         releaseDate: json['release_date'] ?? '',

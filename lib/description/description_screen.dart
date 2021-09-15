@@ -8,13 +8,14 @@ import 'package:flutter_app/description/icon_info.dart';
 import 'package:flutter_app/description/movie_nems.dart';
 import 'package:flutter_app/description/screenshots.dart';
 import 'package:flutter_app/header_title/header_title.dart';
+import 'package:flutter_app/loading/loading_discription.dart';
 import 'package:flutter_app/starr_ating/star_rating.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class DescriptionScreen extends StatefulWidget {
-  final int model;
-  const DescriptionScreen({Key? key, required this.model}) : super(key: key);
+  final int id;
+  const DescriptionScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   _DescriptionScreenState createState() => _DescriptionScreenState();
@@ -25,13 +26,13 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _bloc.add(DescriptionInitializeEvent(widget.model));
+    _bloc.add(DescriptionInitializeEvent(widget.id));
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(
           'MOVIEGO',
-          style: TextStyle(color: HexColor('#ce412e')),
+          style: TextStyle(color: HexColor('#4b1d97')),
         ),
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
@@ -48,16 +49,21 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
             builder: (context, state) {
               if (state is DescriptionStateLoadingState) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: LoadingDiscription(),
                 );
               }
+
               if (state is DescriptionStateSuccessState) {
                 return Column(
                   children: [
                     CoverMovie(
+                        id: state.searchMovies.id,
                         images: state.searchMovies.posterpath,
                         trailerId: state.searchMovies.trailerId,
-                        mylist: state.searchMovies),
+                        mylist: state.searchMovies,
+                        switches: state.myListMovie == null
+                            ? 0
+                            : state.myListMovie.id),
                     Container(
                         margin: EdgeInsets.only(left: 0, top: 20),
                         child: Center(
@@ -93,16 +99,18 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                         height: 45,
                         width: 250,
                         child: IconInfo(
-                          id: state.searchMovies.id,
-                        )),
+                            year: state.searchMovies.releaseDate,
+                            country: state.searchMovies.productionCountries,
+                            length: state.searchMovies.runtime)),
                     DescritionMovie(
                       descrition: state.searchMovies.overview,
                     ),
-                    HeaderTitle(title: 'Screenshots'),
+                    HeaderTitle(title: "Screenshots"),
                     Screenshots(modelId: state.searchMovies.id)
                   ],
                 );
               }
+
               return SizedBox();
             },
           ),

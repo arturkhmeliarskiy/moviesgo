@@ -12,10 +12,11 @@ class MyListBloc extends Bloc<MyListEvent, MyListState> {
 
   @override
   Stream<MyListState> mapEventToState(MyListEvent event) async* {
+    yield MyListLoadingState();
     if (event is MyListInitializeEvent) {
       final myListMovies = await _moviesRepository.getMyMovie();
-
-      yield MyListStateSuccessState(myListMovies);
+      final deleteMovie = await _moviesRepository.deleteMyMovieID(event.id);
+      yield MyListStateSuccessState(myListMovies, deleteMovie);
     }
   }
 }

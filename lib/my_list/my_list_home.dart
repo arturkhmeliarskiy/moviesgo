@@ -64,7 +64,7 @@ class MyListHome extends StatelessWidget {
                       onTap: () {
                         Route route = MaterialPageRoute(
                             builder: (context) =>
-                                DescriptionScreen(model: myMovies[index].id));
+                                DescriptionScreen(id: myMovies[index].id));
                         Navigator.push(context, route);
                       },
                       child: Container(

@@ -75,6 +75,16 @@ class MoviesRepository {
         .toList();
   }
 
+  Future getMyListMovieID(int id) async {
+    final tt = await DBProvider.db.getMovie(id);
+    return tt;
+  }
+
+  Future deleteMyMovieID(int id) async {
+    final tt = await DBProvider.db.deleteMovie(id);
+    return tt;
+  }
+
   Future<List<GenreModel>> getGenres() async {
     final genres = await _service.getGenreList();
     return genres.map((e) => e.toModel()).toList();

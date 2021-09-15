@@ -13,6 +13,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
     if (event is SearchInitializeEvent) {
+      yield SearchStateLoadingState();
       List<MovieModel> searchMovies =
           await _moviesRepository.searchMovies(event.query);
       yield SearchStateSuccessState(searchMovies);
