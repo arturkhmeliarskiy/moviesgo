@@ -22,7 +22,7 @@ class _SettingState extends State<Setting> {
         title: Center(
           child: LocaleText(
             "Setting",
-            style: TextStyle(color: MovieColor().purple),
+            style: TextStyle(color: Theme.of(context).primaryColor),
           ),
         ),
         elevation: 0,
@@ -30,10 +30,7 @@ class _SettingState extends State<Setting> {
       ),
       body: Container(
         child: Column(
-          children: [
-             Localization(),
-            ThemeApp()
-          ],
+          children: [Localization(), ThemeApp()],
         ),
       ),
     );

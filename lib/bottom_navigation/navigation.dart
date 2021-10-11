@@ -34,7 +34,7 @@ class _Navigation extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: HexColor('#fff'),
+      backgroundColor: HexColor('#111111'),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -57,9 +57,10 @@ class _Navigation extends State<Navigation> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: HexColor('#4b1d97'),
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: Theme.of(context).iconTheme.color,
+        unselectedItemColor: Theme.of(context).unselectedWidgetColor,
         onTap: _onItemTapped,
+        backgroundColor: Theme.of(context).backgroundColor,
       ),
     );
   }

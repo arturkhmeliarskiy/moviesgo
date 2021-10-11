@@ -31,10 +31,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       // backgroundColor: HexColor('#fdfdfd'),
       appBar: AppBar(
-        backgroundColor: HexColor('#fdfdfd'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(
           'MOVIEGO',
-          style: TextStyle(color: MovieColor().purple),
+          style: TextStyle(color: Theme.of(context).primaryColor),
         ),
         elevation: 0,
         centerTitle: true,

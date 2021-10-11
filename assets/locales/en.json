@@ -10,5 +10,7 @@
     "Country" : "Country",
     "Year" : "Year",
     "Length" : "Length",
-    "SearchMovie" : "Search movie"
+    "SearchMovie" : "Search movie",
+    "Light": "Light",
+    "Dark" : "Dark"
 }

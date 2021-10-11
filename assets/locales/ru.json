@@ -10,5 +10,7 @@
     "Country" : "Страна",
     "Year" : "Год",
     "Length" : "Длина",
-    "SearchMovie" : "Поиск фильма"
+    "SearchMovie" : "Поиск фильма",
+    "Light": "Светлая",
+    "Dark" : "Темная"
 }
