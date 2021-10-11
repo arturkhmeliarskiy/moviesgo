@@ -1,27 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/youtube_player/youtube_player.dart';
+import 'package:flutter_app/youtube_player/youtube_player_video.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_detail_model.dart';
-import 'package:moviego_services/database.dart';
-import 'package:moviego_services/data_models/db_movie.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class CoverMovie extends StatefulWidget {
-  final String trailerId;
-  final String images;
+  final VoidCallback addToFavorites;
+  final VoidCallback removeFromFavorites;
   final IconData icon;
-  final int id;
-  final int switches;
+  final bool switches;
   final IconData icon2;
-  final MovieDetailModel mylist;
+  final MovieDetailModel movie;
 
   const CoverMovie({
-    required this.trailerId,
-    required this.images,
-    required this.mylist,
-    this.id = 0,
+    required this.addToFavorites,
+    required this.removeFromFavorites,
+    required this.movie,
     required this.switches,
     this.icon = Icons.add_outlined,
     this.icon2 = Icons.share_outlined,
@@ -33,16 +30,29 @@ class CoverMovie extends StatefulWidget {
 }
 
 class _CoverMovie extends State<CoverMovie> {
-  late DBMovie movie;
+  InterstitialAd? interstitialAd;
+  bool isLoaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    InterstitialAd.load(
+        adUnitId: "ca-app-pub-4975133035299985/9961040605",
+        request: AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+          setState(() {
+            isLoaded = true;
+            this.interstitialAd = ad;
+          });
+          print("Ad Loaded");
+        }, onAdFailedToLoad: (error) {
+          print('InterstitialAd failed to load: $error');
+        }));
+  }
 
   @override
   void initState() {
     super.initState();
-    movie = DBMovie(
-        id: widget.mylist.id,
-        title: widget.mylist.title,
-        posterpath: widget.mylist.posterpath,
-        voteAverage: widget.mylist.voteAverage);
   }
 
   void share(String url) {
@@ -55,7 +65,7 @@ class _CoverMovie extends State<CoverMovie> {
   }
 
   bool select = false;
-  bool selected() => widget.id == widget.switches ? true : false;
+  bool selected() => widget.switches;
   get selecteds => selected();
 
   @override
@@ -93,7 +103,7 @@ class _CoverMovie extends State<CoverMovie> {
                     ),
                     child: CachedNetworkImage(
                       imageUrl:
-                          'https://image.tmdb.org/t/p/original/${widget.images}',
+                          'https://image.tmdb.org/t/p/original/${widget.movie.posterpath}',
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
                     ),
@@ -101,11 +111,11 @@ class _CoverMovie extends State<CoverMovie> {
                 ),
               ),
             ),
-            Positioned(
-                top: 268,
-                left: 150.0,
+            Container(
+                margin: EdgeInsets.only(top: 258),
+                alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: HexColor('#ffffff'),
@@ -123,9 +133,12 @@ class _CoverMovie extends State<CoverMovie> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => YPlay(
-                                      id: widget.trailerId,
+                                builder: (context) => YouTube(
+                                      id: widget.movie.trailerId,
                                     )));
+                        // if (isLoaded) {
+                        //   interstitialAd!.show();
+                        // }
                       },
                       child:
                           Stack(alignment: Alignment.center, children: <Widget>[
@@ -137,7 +150,7 @@ class _CoverMovie extends State<CoverMovie> {
                           ),
                         ),
                         Icon(Icons.play_arrow,
-                            color: new Color(0xffd60506), size: 50.0),
+                            color: Color(0xffd60506), size: 50.0),
                       ]),
                     ),
                   ),
@@ -166,8 +179,8 @@ class _CoverMovie extends State<CoverMovie> {
                       ),
                       onPressed: () {
                         selecteds
-                            ? DBProvider.db.deleteMovie(widget.id)
-                            : DBProvider.db.addMovie(movie);
+                            ? widget.removeFromFavorites()
+                            : widget.addToFavorites();
                         setState(() {
                           // ignore: unnecessary_statements
                           selecteds != selecteds;
@@ -182,7 +195,7 @@ class _CoverMovie extends State<CoverMovie> {
                         color: HexColor('#4b1d97'),
                         size: 30,
                       ),
-                      onPressed: () => share(widget.mylist.homePage),
+                      onPressed: () => share(widget.movie.homePage),
                     ),
                   ],
                 ),

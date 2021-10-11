@@ -8,12 +8,14 @@ class HomeLoadedState extends HomeState {
   final List<MovieModel> carouselMovies;
   final List<GenreModel> genres;
   final List<MovieModel> myListMovies;
-  final List<MovieModel> moviesByGenre;
+  final List<MovieModel> moviesComedy;
+  final List<MovieModel> moviesFantasy;
 
   HomeLoadedState(
     this.carouselMovies,
     this.genres,
     this.myListMovies,
-    this.moviesByGenre,
+    this.moviesComedy,
+    this.moviesFantasy,
   );
 }

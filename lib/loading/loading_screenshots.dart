@@ -48,12 +48,10 @@ class LoadingCollectionState extends State<LoadingScreenshots>
             padding: EdgeInsets.only(left: 40.0, top: 0, bottom: 40),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20)),
+                borderRadius: BorderRadius.circular(20.0),
                 color: Colors.grey,
               ),
-              width: 130,
+              width: 200,
               height: 130,
             ),
           ),

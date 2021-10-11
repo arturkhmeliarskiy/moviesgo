@@ -1,16 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/category/catergories_movies.dart';
+import 'package:flutter_app/category/category_with_movies.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/genre_model.dart';
 import 'package:moviego_models/movie_model.dart';
 
 final backImage = MovieModel;
 
-class CategoriesList extends StatelessWidget {
+class GenresOfFilms extends StatelessWidget {
   final List<GenreModel> genres;
-  const CategoriesList({
+  const GenresOfFilms({
     required this.genres,
     Key? key,
   }) : super(key: key);
@@ -27,7 +26,7 @@ class CategoriesList extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 Route route = MaterialPageRoute(
-                    builder: (context) => CategoriesMovie(
+                    builder: (context) => MoviesByCategoryPage(
                         genres: genres[index].id, name: genres[index].name));
                 Navigator.push(context, route);
               },
@@ -49,11 +48,11 @@ class CategoriesList extends StatelessWidget {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(15.0),
                         child: ColorFiltered(
-                          child: CachedNetworkImage(
-                            imageUrl: genres[index].imageUrl,
-                            fit: BoxFit.cover,
+                          child: Image.asset(
+                            genres[index].imageUrl,
                             height: 50,
                             width: 120,
+                            fit: BoxFit.cover,
                           ),
                           colorFilter: ColorFilter.mode(
                               HexColor('#242757'), BlendMode.color),

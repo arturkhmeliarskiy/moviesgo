@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:moviego_models/movie_model.dart';
 import 'carousel_item.dart';
 
-class CarouselSliders extends StatelessWidget {
+class CarouselMovieSlides extends StatelessWidget {
   final List<MovieModel> movies;
 
-  const CarouselSliders({
+  const CarouselMovieSlides({
     required this.movies,
     Key? key,
   }) : super(key: key);

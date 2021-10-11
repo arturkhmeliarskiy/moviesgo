@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoadingHome extends StatefulWidget {
+class LoadingHomePage extends StatefulWidget {
   @override
-  LoadingHomeState createState() => LoadingHomeState();
+  LoadingHomePageState createState() => LoadingHomePageState();
 }
 
-class LoadingHomeState extends State<LoadingHome>
+class LoadingHomePageState extends State<LoadingHomePage>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
 
@@ -55,7 +55,7 @@ class LoadingHomeState extends State<LoadingHome>
                       borderRadius: BorderRadius.circular(10.0),
                       color: Colors.grey,
                     ),
-                    height: 180,
+                    height: 200,
                   ),
                 ),
                 Padding(
@@ -101,12 +101,10 @@ class LoadingHomeState extends State<LoadingHome>
                   padding: EdgeInsets.only(left: 40.0, top: 30),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20)),
+                      borderRadius: BorderRadius.circular(20.0),
                       color: Colors.grey,
                     ),
-                    width: 55,
+                    width: 120,
                     height: 50,
                   ),
                 ),
@@ -149,7 +147,7 @@ class LoadingHomeState extends State<LoadingHome>
                         color: Colors.grey,
                       ),
                       width: 120,
-                      height: 140,
+                      height: 150,
                     ),
                   ),
                   Padding(
@@ -160,20 +158,18 @@ class LoadingHomeState extends State<LoadingHome>
                         color: Colors.grey,
                       ),
                       width: 120,
-                      height: 140,
+                      height: 150,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 40.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20)),
+                        borderRadius: BorderRadius.circular(20.0),
                         color: Colors.grey,
                       ),
-                      width: 55,
-                      height: 140,
+                      width: 120,
+                      height: 150,
                     ),
                   ),
                 ],
@@ -216,7 +212,7 @@ class LoadingHomeState extends State<LoadingHome>
                         color: Colors.grey,
                       ),
                       width: 120,
-                      height: 140,
+                      height: 150,
                     ),
                   ),
                   Padding(
@@ -227,20 +223,18 @@ class LoadingHomeState extends State<LoadingHome>
                         color: Colors.grey,
                       ),
                       width: 120,
-                      height: 140,
+                      height: 150,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 40.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20)),
+                        borderRadius: BorderRadius.circular(20.0),
                         color: Colors.grey,
                       ),
-                      width: 55,
-                      height: 140,
+                      width: 120,
+                      height: 150,
                     ),
                   ),
                 ],

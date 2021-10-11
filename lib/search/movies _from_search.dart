@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/starr_ating/star_rating.dart';
+import 'package:flutter_app/star_rating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_model.dart';
 import '../description/description_screen.dart';
 
-class MovieLists extends StatelessWidget {
+class MoviesFromSearch extends StatelessWidget {
   final List<MovieModel> mylist;
-  const MovieLists({
+  const MoviesFromSearch({
     required this.mylist,
     Key? key,
   }) : super(key: key);

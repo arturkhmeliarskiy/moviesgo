@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class GenneMovie extends StatelessWidget {
+class GenresMovie extends StatelessWidget {
   final List<dynamic> nameGenre;
 
-  const GenneMovie({
+  const GenresMovie({
     required this.nameGenre,
     Key? key,
   }) : super(key: key);

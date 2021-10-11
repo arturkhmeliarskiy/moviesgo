@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/loading/loading_movie.dart';
 
-class LoadingCategory extends StatefulWidget {
+class LoadingGenres extends StatefulWidget {
   final num n;
-  const LoadingCategory({Key? key, required this.n}) : super(key: key);
+  const LoadingGenres({Key? key, required this.n}) : super(key: key);
   @override
-  LoadingCollectionState createState() => LoadingCollectionState();
+  LoadingGenresState createState() => LoadingGenresState();
 }
 
-class LoadingCollectionState extends State<LoadingCategory>
+class LoadingGenresState extends State<LoadingGenres>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
 

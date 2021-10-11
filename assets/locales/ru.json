@@ -1,6 +1,7 @@
 {
     "MyList" : "Мой лист",
     "Comedy" : "Комедии",
+    "Fantasy" : "Фэнтези",
     "Language" : "Язык",
     "Home" : "Главная",
     "Search" : "Поиск",
@@ -9,5 +10,7 @@
     "Country" : "Страна",
     "Year" : "Год",
     "Length" : "Длина",
-    "SearchMovie" : "Поиск фильма"
+    "SearchMovie" : "Поиск фильма",
+    "Dark": "Темная",
+    "Light": "Светлая"
 }

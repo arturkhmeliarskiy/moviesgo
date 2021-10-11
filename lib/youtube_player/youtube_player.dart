@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 // ignore: must_be_immutable
 class YPlay extends StatefulWidget {
@@ -12,11 +13,18 @@ class YPlay extends StatefulWidget {
 }
 
 class _YPlayState extends State<YPlay> {
+  final BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-4975133035299985/3402235641',
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(),
+  );
+
   late YoutubePlayerController controller;
   @override
   void initState() {
     super.initState();
-
+    myBanner.load();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       setState(() {
         controller = YoutubePlayerController(
@@ -53,7 +61,15 @@ class _YPlayState extends State<YPlay> {
             child: YoutubePlayerIFrame(
               aspectRatio: 16 / 9,
             ),
-          )
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            width: 300,
+            height: 50,
+            child: AdWidget(
+              ad: myBanner,
+            ),
+          ),
         ],
       ),
     );

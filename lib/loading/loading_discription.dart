@@ -64,9 +64,9 @@ class LoadingDiscriptionState extends State<LoadingDiscription>
                       ),
                     ),
                   ),
-                  Positioned(
-                      top: 268,
-                      left: 150.0,
+                  Container(
+                      margin: EdgeInsets.only(top: 258),
+                      alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
@@ -254,12 +254,10 @@ class LoadingDiscriptionState extends State<LoadingDiscription>
                       padding: EdgeInsets.only(left: 40.0, top: 0, bottom: 40),
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              bottomLeft: Radius.circular(20)),
+                          borderRadius: BorderRadius.circular(20.0),
                           color: Colors.grey,
                         ),
-                        width: 130,
+                        width: 200,
                         height: 130,
                       ),
                     ),
