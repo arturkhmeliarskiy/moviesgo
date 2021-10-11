@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/my_list_blloc/my_list_bloc.dart';
 import 'package:flutter_app/description/description_screen.dart';
-import 'package:flutter_app/loading/loading_category.dart';
-import 'package:flutter_app/starr_ating/star_rating.dart';
+import 'package:flutter_app/loading/loading_genres.dart';
+import 'package:flutter_app/star_rating/star_rating.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class MyList extends StatefulWidget {
@@ -14,12 +15,13 @@ class MyList extends StatefulWidget {
 
 class _MyList extends State<MyList> {
   final MyListBloc _bloc = MyListBloc();
+
   Widget build(BuildContext context) {
     _bloc.add(MyListInitializeEvent(0));
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'My list',
+        title: LocaleText(
+          "MyList",
           style: TextStyle(color: HexColor('#4b1d97')),
         ),
         iconTheme: IconThemeData(
@@ -34,7 +36,7 @@ class _MyList extends State<MyList> {
         builder: (context, state) {
           if (state is MyListLoadingState) {
             return Center(
-              child: LoadingCategory(n: 5),
+              child: LoadingGenres(n: 5),
             );
           }
           if (state is MyListStateSuccessState) {
@@ -44,9 +46,10 @@ class _MyList extends State<MyList> {
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return Container(
-                    margin: EdgeInsets.only(top: 0, left: 20, bottom: 25),
+                    margin: EdgeInsets.only(top: 0, left: 0, bottom: 25),
                     child: Column(children: <Widget>[
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           GestureDetector(
                             onTap: () {
@@ -82,13 +85,12 @@ class _MyList extends State<MyList> {
                             children: [
                               Container(
                                 width: 190,
-                                margin: EdgeInsets.only(left: 15),
+                                // margin: EdgeInsets.only(right: 15),
                                 // color: Colors.red,
                                 child: Column(
                                   children: [
                                     Container(
-                                      // color: Colors.red,
-                                      width: 180.0,
+                                      width: 250.0,
                                       margin: EdgeInsets.only(left: 35),
                                       child: Text(
                                         state.myListMovie[index].title,
@@ -118,18 +120,22 @@ class _MyList extends State<MyList> {
                                   ],
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  _bloc.add(MyListInitializeEvent(
-                                      state.myListMovie[index].id));
-                                  setState(() {});
-                                },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: HexColor('#242757'),
-                                ),
-                              ),
                             ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(0),
+                            // color: Colors.green,
+                            child: IconButton(
+                              onPressed: () {
+                                _bloc.add(MyListInitializeEvent(
+                                    state.myListMovie[index].id));
+                                // setState(() {});
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: HexColor('#242757'),
+                              ),
+                            ),
                           ),
                         ],
                       )

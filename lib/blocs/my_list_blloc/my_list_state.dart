@@ -6,9 +6,8 @@ class MyListLoadingState extends MyListState {}
 
 class MyListStateSuccessState extends MyListState {
   final List<MovieModel> myListMovie;
-  final deleteMovie;
 
-  MyListStateSuccessState(this.myListMovie, this.deleteMovie);
+  MyListStateSuccessState(this.myListMovie);
 }
 
 class MyListLoadedState extends MyListState {

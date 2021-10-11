@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class MovieNems extends StatelessWidget {
+class NameMovie extends StatelessWidget {
   final String name;
 
-  const MovieNems({
+  const NameMovie({
     required this.name,
     Key? key,
   }) : super(key: key);

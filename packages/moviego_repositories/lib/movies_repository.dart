@@ -1,46 +1,49 @@
 //28 action  12 adventure 16 animation  35 comedy  80 crime
-
+import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:moviego_models/genre_model.dart';
 import 'package:moviego_models/movie_model.dart';
 import 'package:moviego_models/movie_detail_model.dart';
+import 'package:moviego_services/data_models/db_movie.dart';
 import 'package:moviego_services/data_models/genre.dart';
 import 'package:moviego_services/data_models/movie_data.dart';
 import 'package:moviego_services/data_models/movie_detail.dart';
 import 'package:moviego_services/database.dart';
 import 'package:moviego_services/moviego_services.dart';
+import 'package:event/event.dart';
 
 final _genreImagesMap = <int, String>{
-  28: 'https://i.ytimg.com/vi/H0ldnevOrUI/maxresdefault.jpg',
-  12: 'https://unitingartists.org/wp-content/uploads/2020/06/Adventure-Genre-800x445.jpg',
-  16: 'https://i.pinimg.com/originals/b0/10/a9/b010a96947186f31aaa3434f1562fea1.jpg',
-  35: 'https://i.pinimg.com/originals/44/bd/0f/44bd0f871fb17f956703a5c2538d71bb.jpg',
-  80: 'https://s.studiobinder.com/wp-content/uploads/2019/11/73-Best-Crime-Movies-Featured-StudioBinder-min.jpg',
-  99: 'https://ecowarriorprincess.net/wp-content/uploads/2016/11/must-see-green-films-best-environmental-documentaries.jpg',
-  18: 'https://freedramamoviesblog.files.wordpress.com/2014/11/free-drama-movies-3.png',
-  10751:
-      'https://purewows3.imgix.net/images/articles/2019_04/The-Goonies-family-movie.jpg?auto=format,compress&cs=strip',
-  14: 'https://www.looper.com/img/gallery/the-best-fantasy-movies-of-all-time-according-to-rotten-tomatoes/intro-1584539545.jpg',
-  36: 'https://www.topinspired.com/wp-content/uploads/2015/06/king-arthur.jpg',
-  27: 'https://helios-i.mashable.com/imagery/articles/01eIvreZ9sXEnn1jUU6nyQM/images-93.jpg',
-  10402:
-      'https://pyxis.nymag.com/v1/imgs/283/309/2d75ce5537e36f926ec9aae823dd470267-music-sia.2x.rsocial.w600.jpg',
-  9648:
-      'https://orion-uploads.openroadmedia.com/md_bcf267e3c946-bestmysteryandthrillermovies2019_feature.jpg',
-  10749:
-      'https://cdn.onebauer.media/one/empire-images/features/5a84102108d1e196265a9d4f/40-the-notebook.jpg',
-  878:
-      'https://www.tollywood.net/wp-content/uploads/2018/04/Avengers-Infinity-War.jpeg',
-  10770:
-      'https://news-cdn.softpedia.com/images/news2/Watch-Movies-and-Trailers-for-Free-with-the-Latest-Popcorn-Time-466428-2.jpg',
-  53: 'https://media.timeout.com/images/105168146/image.jpg',
-  10752:
-      'https://pyxis.nymag.com/v1/imgs/3b6/1b5/809f83e544831f5301bea0398d2a6a489e-08-war-movies-ranking-2.jpg',
-  37: 'https://res.cloudinary.com/jerrick/image/upload/f_jpg,fl_progressive,q_auto,w_1024/q3zwj4txrzvt7i1shcxa.jpg',
+  28: 'assets/images/category/action.jpg',
+  12: 'assets/images/category/adventure.jpg',
+  16: 'assets/images/category/animation.jpg',
+  35: 'assets/images/category/comedy.jpg',
+  80: 'assets/images/category/crime.png',
+  99: 'assets/images/category/documentary.jpg',
+  18: 'assets/images/category/drama.png',
+  10751: 'assets/images/category/family.jpg',
+  14: 'assets/images/category/fantasy.jpg',
+  36: 'assets/images/category/history.jpg',
+  27: 'assets/images/category/horror.jpg',
+  10402: 'assets/images/category/music.png',
+  9648: 'assets/images/category/mystery.jpg',
+  10749: 'assets/images/category/romance.jpg',
+  878: 'assets/images/category/science_fiction.jpeg',
+  10770: 'assets/images/category/tv_movie.jpg',
+  53: 'assets/images/category/thriller.jpg',
+  10752: 'assets/images/category/war.jpg',
+  37: 'assets/images/category/western.jpg',
 };
 
 class MoviesRepository {
   final MoviesSevice _service = MoviesSevice();
   late List<GenreModel> _genres;
+  static ValueChanged? onMyListChanged;
+
+  // final valueChangedEvent = Event();
+
+  final _valueChanged = StreamController<Object>.broadcast();
+
+  Stream<Object> get valueChanged => _valueChanged.stream;
 
   Future<List<MovieModel>> getPopularMovies() async {
     final movies = await _service.getPopularMovies();
@@ -75,14 +78,25 @@ class MoviesRepository {
         .toList();
   }
 
-  Future getMyListMovieID(int id) async {
-    final tt = await DBProvider.db.getMovie(id);
-    return tt;
+  Future<void> addMovie(MovieDetailModel movie) async {
+    await DBProvider.db.addMovie(DBMovie(
+      id: movie.id,
+      title: movie.title,
+      posterpath: movie.posterpath,
+      voteAverage: movie.voteAverage,
+    ));
+    _valueChanged.add(123);
   }
 
-  Future deleteMyMovieID(int id) async {
-    final tt = await DBProvider.db.deleteMovie(id);
-    return tt;
+  Future getMyListMovieID(int id) async {
+    final movie = await DBProvider.db.getMovie(id);
+    return movie;
+  }
+
+  Future<void> deleteMyMovieID(int id) async {
+    await DBProvider.db.deleteMovie(id);
+    onMyListChanged?.call(0);
+    _valueChanged.add('');
   }
 
   Future<List<GenreModel>> getGenres() async {

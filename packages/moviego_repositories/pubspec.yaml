@@ -25,6 +25,7 @@ dependencies:
     path: ../moviego_models
   moviego_services:
     path: ../moviego_services
+  event: ^2.0.5
 
 dev_dependencies:
   flutter_test:

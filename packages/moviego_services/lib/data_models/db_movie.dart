@@ -22,7 +22,7 @@ class DBMovie {
       this.posterpath = '',
       this.voteAverage = 0});
 
-  factory DBMovie.fromMap(Map<String, dynamic> json) => new DBMovie(
+  factory DBMovie.fromMap(Map<String, dynamic> json) => DBMovie(
         id: json["id"] ?? 0,
         title: json["title"] ?? '',
         posterpath: json["posterpath"] ?? '',

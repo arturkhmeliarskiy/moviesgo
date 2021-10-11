@@ -1,35 +1,41 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/starr_ating/star_rating.dart';
+import 'package:flutter_app/star_rating/star_rating.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_model.dart';
 
 import '../description/description_screen.dart';
 
-class MovieList extends StatelessWidget {
+class CarouselMovie extends StatefulWidget {
   final List<MovieModel> mylist;
 
-  const MovieList({
+  const CarouselMovie({
     required this.mylist,
     Key? key,
   }) : super(key: key);
 
   @override
+  _CarouselMovieState createState() => _CarouselMovieState();
+}
+
+class _CarouselMovieState extends State<CarouselMovie> {
+  @override
   Widget build(BuildContext context) => Container(
-        height: 220,
+        height: 200,
         // color: HexColor('#c42a2a'),
         child: ListView.builder(
-          itemCount: mylist.length,
+          itemCount: widget.mylist.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Column(children: <Widget>[
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   Route route = MaterialPageRoute(
                       builder: (context) =>
-                          DescriptionScreen(id: mylist[index].id));
-                  Navigator.push(context, route);
+                          DescriptionScreen(id: widget.mylist[index].id));
+                  await Navigator.push(context, route)
+                      .then((value) => setState(() {}));
                 },
                 child: Container(
                     width: 120.0,
@@ -50,7 +56,7 @@ class MovieList extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15.0),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://image.tmdb.org/t/p/original/${mylist[index].posterPath}',
+                            'https://image.tmdb.org/t/p/original/${widget.mylist[index].posterPath}',
                         fit: BoxFit.cover,
                         width: 120,
                         height: 150,
@@ -64,7 +70,7 @@ class MovieList extends StatelessWidget {
                   left: 42,
                 ),
                 child: Text(
-                  mylist[index].title,
+                  widget.mylist[index].title,
                   style: TextStyle(fontSize: 15, color: HexColor('#161616')),
                   maxLines: 1,
                 ),
@@ -77,7 +83,7 @@ class MovieList extends StatelessWidget {
                   left: 40,
                 ),
                 child: StarRating(
-                  rating: double.parse(mylist[index].voteAverage) / 2,
+                  rating: double.parse(widget.mylist[index].voteAverage) / 2,
                   iconSize: 16.0,
                   icon: Icons.star,
                   icon2: Icons.star_border,

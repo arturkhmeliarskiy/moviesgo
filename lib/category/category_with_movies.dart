@@ -1,28 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/blocs/catergories_bloc/catergories_bloc.dart';
+import 'package:flutter_app/blocs/category_bloc/catergories_bloc.dart';
 import 'package:flutter_app/description/description_screen.dart';
-import 'package:flutter_app/loading/loading_category.dart';
-import 'package:flutter_app/starr_ating/star_rating.dart';
+import 'package:flutter_app/loading/loading_genres.dart';
+import 'package:flutter_app/star_rating/star_rating.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class CategoriesMovie extends StatefulWidget {
+class MoviesByCategoryPage extends StatefulWidget {
   final int genres;
   final String name;
 
-  const CategoriesMovie({
+  const MoviesByCategoryPage({
     required this.genres,
     required this.name,
     Key? key,
   }) : super(key: key);
 
   @override
-  _CategoriesMovieState createState() => _CategoriesMovieState();
+  _MoviesByCategoryPageState createState() => _MoviesByCategoryPageState();
 }
 
-class _CategoriesMovieState extends State<CategoriesMovie> {
+class _MoviesByCategoryPageState extends State<MoviesByCategoryPage> {
   final CategoriesBloc _bloc = CategoriesBloc();
 
   @override
@@ -33,7 +33,7 @@ class _CategoriesMovieState extends State<CategoriesMovie> {
       appBar: AppBar(
         title: Text(
           widget.name,
-          style: TextStyle(color: HexColor('#242757')),
+          style: TextStyle(color: HexColor('#4b1d97')),
         ),
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
@@ -47,7 +47,7 @@ class _CategoriesMovieState extends State<CategoriesMovie> {
         builder: (context, state) {
           if (state is CategoriesStateLoadingState) {
             return Center(
-              child: LoadingCategory(
+              child: LoadingGenres(
                 n: 5,
               ),
             );
