@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/home/home_page.dart';
-import 'package:flutter_app/localization/localization.dart';
+import 'package:flutter_app/setting/setting.dart';
 import 'package:flutter_app/my_list/my_list.dart';
 import 'package:flutter_app/search/search_page.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -20,7 +20,7 @@ class _Navigation extends State<Navigation> {
     HomePage(),
     SearchPage(),
     MyList(),
-    Localization()
+    Setting()
   ];
 
   void _onItemTapped(int index) {
@@ -34,7 +34,7 @@ class _Navigation extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor('#f4f4f4'),
+      // backgroundColor: HexColor('#fff'),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

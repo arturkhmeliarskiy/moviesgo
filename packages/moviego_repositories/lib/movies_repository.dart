@@ -1,4 +1,5 @@
 //28 action  12 adventure 16 animation  35 comedy  80 crime
+
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:moviego_models/genre_model.dart';
@@ -37,13 +38,14 @@ final _genreImagesMap = <int, String>{
 class MoviesRepository {
   final MoviesSevice _service = MoviesSevice();
   late List<GenreModel> _genres;
+
   static ValueChanged? onMyListChanged;
+ 
+  var changeEvent = Event();
+ 
+  final _valueChange= StreamController<Object>.broadcast();
 
-  // final valueChangedEvent = Event();
-
-  final _valueChanged = StreamController<Object>.broadcast();
-
-  Stream<Object> get valueChanged => _valueChanged.stream;
+  Stream<Object> get valueChange => _valueChange.stream;
 
   Future<List<MovieModel>> getPopularMovies() async {
     final movies = await _service.getPopularMovies();
@@ -85,7 +87,8 @@ class MoviesRepository {
       posterpath: movie.posterpath,
       voteAverage: movie.voteAverage,
     ));
-    _valueChanged.add(123);
+    // _valueChange.add('');
+    changeEvent.broadcast();
   }
 
   Future getMyListMovieID(int id) async {
@@ -96,7 +99,8 @@ class MoviesRepository {
   Future<void> deleteMyMovieID(int id) async {
     await DBProvider.db.deleteMovie(id);
     onMyListChanged?.call(0);
-    _valueChanged.add('');
+    // _valueChange.add('');
+    changeEvent.broadcast();
   }
 
   Future<List<GenreModel>> getGenres() async {

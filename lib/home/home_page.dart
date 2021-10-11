@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter_app/category/category_of_films.dart';
+import 'package:flutter_app/colors/movie_color.dart';
 import 'package:flutter_app/header_title/header_title.dart';
 import 'package:flutter_app/loading/loading_home_page.dart';
 import 'package:flutter_app/movie_list/movie_list.dart';
@@ -27,14 +28,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _bloc.add(LoadMoviesEvent());
-
     return Scaffold(
-      backgroundColor: HexColor('#fdfdfd'),
+      // backgroundColor: HexColor('#fdfdfd'),
       appBar: AppBar(
         backgroundColor: HexColor('#fdfdfd'),
         title: Text(
           'MOVIEGO',
-          style: TextStyle(color: HexColor('#4b1d97')),
+          style: TextStyle(color: MovieColor().purple),
         ),
         elevation: 0,
         centerTitle: true,
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           }
           if (state is HomeLoadedState) {
             return Container(
-              color: HexColor('#fdfdfd'),
+              // color: HexColor('#fdfdfd'),
               child: SingleChildScrollView(
                 child: Column(
                   children: [

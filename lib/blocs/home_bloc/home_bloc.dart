@@ -16,12 +16,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    if (event is HomeInitializeEvent) {
-      _moviesRepository.valueChanged.listen((event) {
+    if(event is HomeInitializeEvent) {
+      _moviesRepository.changeEvent.subscribe((event) { 
         add(LoadMoviesEvent());
         print(event);
       });
     }
+    // if (event is HomeInitializeEvent) {
+    //   _moviesRepository.valueChange.listen((event) {
+    //     add(LoadMoviesEvent());
+    //     print(event);
+    //   });
+    // }
     if (event is LoadMoviesEvent) {
       final myListMovies = await _moviesRepository.getMyMovie();
       final moviesComedy = await _moviesRepository.getMoviesByGenreId(35);
