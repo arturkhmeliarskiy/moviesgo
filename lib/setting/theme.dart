@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'package:flutter_app/colors/movie_color.dart';
 import 'package:flutter_app/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ThemeApp extends StatefulWidget {
   @override
@@ -25,10 +23,11 @@ bool select = false;
         ListTile(
           title: LocaleText(themeProvider.isDarkMode ? "Dark" : "Light",
               style: TextStyle(
-                  color: HexColor('#585858'),
+                  color: Theme.of(context).selectedRowColor,
                   fontSize: 16,
                   fontWeight: FontWeight.normal)),
           trailing: CupertinoSwitch(
+              trackColor: MovieColor.purple,
             activeColor: Theme.of(context).cardColor,
             value: themeProvider.isDarkMode,
             onChanged: (value) {

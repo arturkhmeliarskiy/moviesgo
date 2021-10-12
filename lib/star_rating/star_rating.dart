@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_app/colors/movie_color.dart';
 
 class StarRating extends StatelessWidget {
   final num rating;
@@ -27,7 +27,7 @@ class StarRating extends StatelessWidget {
             Icon(
               rating > i ? icon : icon2,
               size: iconSize,
-              color: rating > i ? HexColor('#ebcc1b') : HexColor('#000000'),
+              color: rating > i ? MovieColor.yellow : Theme.of(context).selectedRowColor,
             ),
           Container(
             margin: EdgeInsets.only(left: marginLeft),

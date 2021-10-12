@@ -5,7 +5,6 @@ import 'package:flutter_app/setting/setting.dart';
 import 'package:flutter_app/my_list/my_list.dart';
 import 'package:flutter_app/search/search_page.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class Navigation extends StatefulWidget {
   @override
@@ -34,7 +33,6 @@ class _Navigation extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor('#111111'),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/home_bloc/home_bloc.dart';
-import 'package:flutter_app/category/category_of_films.dart';
-import 'package:flutter_app/colors/movie_color.dart';
+import 'package:flutter_app/category/category_of_movie.dart';
 import 'package:flutter_app/header_title/header_title.dart';
 import 'package:flutter_app/loading/loading_home_page.dart';
 import 'package:flutter_app/movie_list/movie_list.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_app/my_list/my_switcher.dart';
 import 'package:flutter_app/slider/%D1%81arousel_movie_slides.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,10 +29,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       // backgroundColor: HexColor('#fdfdfd'),
       appBar: AppBar(
-        backgroundColor: HexColor('#fdfdfd'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(
           'MOVIEGO',
-          style: TextStyle(color: MovieColor.purple),
+          style: TextStyle(color: Theme.of(context).primaryColor),
         ),
         elevation: 0,
         centerTitle: true,
@@ -64,7 +62,6 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }
-
           return SizedBox();
         },
       ),

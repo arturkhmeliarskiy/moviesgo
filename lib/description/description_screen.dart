@@ -56,7 +56,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
           style: TextStyle(color: HexColor('#4b1d97')),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).canvasColor,),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -69,7 +69,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
         elevation: 0,
       ),
       body: Container(
-        color: HexColor('#f4f4f4'),
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Column(
           children: [
             Expanded(

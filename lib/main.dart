@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter_app/bottom_navigation/navigation.dart';
-import 'package:flutter_app/colors/movie_color.dart';
 import 'package:flutter_app/theme/theme_provider.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:get_it/get_it.dart';

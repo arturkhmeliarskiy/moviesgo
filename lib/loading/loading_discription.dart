@@ -36,7 +36,7 @@ class LoadingDiscriptionState extends State<LoadingDiscription>
         child: Column(
           children: [
             Container(
-              color: HexColor('#f4f4f4'),
+              color: Theme.of(context).scaffoldBackgroundColor,
               height: 380,
               child: Stack(
                 children: [

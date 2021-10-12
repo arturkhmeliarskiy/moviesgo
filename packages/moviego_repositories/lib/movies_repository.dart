@@ -43,9 +43,9 @@ class MoviesRepository {
  
   var changeEvent = Event();
  
-  final _valueChange= StreamController<Object>.broadcast();
+  // final _valueChange= StreamController<Object>.broadcast();
 
-  Stream<Object> get valueChange => _valueChange.stream;
+  // Stream<Object> get valueChange => _valueChange.stream;
 
   Future<List<MovieModel>> getPopularMovies() async {
     final movies = await _service.getPopularMovies();
@@ -138,7 +138,7 @@ class MoviesRepository {
 
 extension on MovieData {
   MovieModel toModel(List<GenreModel> allGenres) => MovieModel(
-        backdropPath: backdropPath,
+        backdropPath: 'https://image.tmdb.org/t/p/original/$backdropPath',
         id: id,
         genres: allGenres
             .where((element) => this.genreIds.contains(element.id))
@@ -147,7 +147,7 @@ extension on MovieData {
         originalTitle: originalTitle,
         overview: overview,
         popularity: popularity.toInt(),
-        posterPath: posterPath,
+        posterPath: 'https://image.tmdb.org/t/p/original/$posterPath',
         releaseDate: releaseDate,
         title: title,
         video: video,
@@ -169,8 +169,8 @@ extension on MovieDetailData {
   MovieDetailModel toModel() => MovieDetailModel(
       id: id,
       title: title,
-      backdropPath: backdropPath,
-      posterpath: posterpath,
+      backdropPath: 'https://image.tmdb.org/t/p/original/$backdropPath',
+      posterpath: 'https://image.tmdb.org/t/p/original/$posterpath',
       genres: genres,
       trailerId: trailerId,
       budget: budget,

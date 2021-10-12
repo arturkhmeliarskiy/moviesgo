@@ -6,7 +6,6 @@ import 'package:flutter_app/description/description_screen.dart';
 import 'package:flutter_app/loading/loading_genres.dart';
 import 'package:flutter_app/star_rating/star_rating.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class MoviesByCategoryPage extends StatefulWidget {
   final int genres;
@@ -33,10 +32,10 @@ class _MoviesByCategoryPageState extends State<MoviesByCategoryPage> {
       appBar: AppBar(
         title: Text(
           widget.name,
-          style: TextStyle(color: HexColor('#4b1d97')),
+          style: TextStyle(color: Theme.of(context).primaryColor),
         ),
         iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
+          color: Theme.of(context).primaryColor, //change your color here
         ),
         centerTitle: true,
         backgroundColor: Colors.white.withOpacity(0),
@@ -76,7 +75,7 @@ class _MoviesByCategoryPageState extends State<MoviesByCategoryPage> {
                                       borderRadius: BorderRadius.circular(20.0),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: HexColor('#9b9b9b'),
+                                          color: Theme.of(context).shadowColor,
                                           blurRadius: 10,
                                           offset:
                                               Offset(0, 8), // Shadow position
@@ -87,7 +86,7 @@ class _MoviesByCategoryPageState extends State<MoviesByCategoryPage> {
                                       borderRadius: BorderRadius.circular(15.0),
                                       child: CachedNetworkImage(
                                         imageUrl:
-                                            'https://image.tmdb.org/t/p/original/${state.searchMovies[index].posterPath}',
+                                            state.searchMovies[index].posterPath,
                                         fit: BoxFit.cover,
                                         width: 120,
                                         height: 150,
@@ -107,7 +106,7 @@ class _MoviesByCategoryPageState extends State<MoviesByCategoryPage> {
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
-                                            color: HexColor('#242757')),
+                                            color: Theme.of(context).splashColor),
                                         maxLines: 2,
                                       ),
                                     ),

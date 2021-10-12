@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class HeaderTitle extends StatelessWidget {
   final String title;
@@ -19,11 +18,11 @@ class HeaderTitle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             LocaleText(title,
-                style: TextStyle(fontSize: 18, color: HexColor('#4b1d97'))),
+                style: TextStyle(fontSize: 18, color: Theme.of(context).primaryColor)),
             IconButton(
               icon: Icon(Icons.arrow_right_alt),
               onPressed: () {},
-              color: HexColor('#4b1d97'),
+              color: Theme.of(context).primaryColor,
               iconSize: 30,
             ),
           ],

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/category/category_with_movies.dart';
+import 'package:flutter_app/colors/movie_color.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/genre_model.dart';
 import 'package:moviego_models/movie_model.dart';
@@ -39,7 +40,7 @@ class GenresOfFilms extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
-                          color: HexColor('#9b9b9b'),
+                          color: Theme.of(context).shadowColor,
                           blurRadius: 4,
                           offset: Offset(0, 6), // Shadow position
                         ),
@@ -60,7 +61,7 @@ class GenresOfFilms extends StatelessWidget {
                   ),
                   Text(
                     genres[index].name,
-                    style: TextStyle(fontSize: 17, color: HexColor('#fcfcfc')),
+                    style: TextStyle(fontSize: 17, color: MovieColor.white),
                   )
                 ]),
               ),

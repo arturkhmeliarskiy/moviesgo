@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/description/description_screen.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_model.dart';
 
 class CarouselItem extends StatelessWidget {
@@ -22,7 +21,7 @@ class CarouselItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
             boxShadow: [
               BoxShadow(
-                color: HexColor('#9b9b9b'),
+                color: Theme.of(context).shadowColor,
                 blurRadius: 8,
                 offset: Offset(0, 10), // Shadow position
               ),
@@ -35,7 +34,7 @@ class CarouselItem extends StatelessWidget {
                 children: <Widget>[
                   CachedNetworkImage(
                     imageUrl:
-                        'https://image.tmdb.org/t/p/original/${model.backdropPath}',
+                        model.backdropPath,
                     fit: BoxFit.cover,
                     width: 1000.0,
                     fadeInDuration: Duration.zero,

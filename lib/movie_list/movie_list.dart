@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/star_rating/star_rating.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_model.dart';
 
 import '../description/description_screen.dart';
@@ -43,7 +42,7 @@ class _CarouselMovieState extends State<CarouselMovie> {
                       borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
-                          color: HexColor('#9b9b9b'),
+                          color: Theme.of(context).shadowColor,
                           blurRadius: 10,
                           offset: Offset(0, 8), // Shadow position
                         ),
@@ -56,7 +55,7 @@ class _CarouselMovieState extends State<CarouselMovie> {
                       borderRadius: BorderRadius.circular(15.0),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://image.tmdb.org/t/p/original/${widget.mylist[index].posterPath}',
+                            widget.mylist[index].posterPath,
                         fit: BoxFit.cover,
                         width: 120,
                         height: 150,
@@ -71,7 +70,7 @@ class _CarouselMovieState extends State<CarouselMovie> {
                 ),
                 child: Text(
                   widget.mylist[index].title,
-                  style: TextStyle(fontSize: 15, color: HexColor('#161616')),
+                  style: TextStyle(fontSize: 15, color: Theme.of(context).selectedRowColor),
                   maxLines: 1,
                 ),
               ),

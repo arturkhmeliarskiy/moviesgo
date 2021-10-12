@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class Screenshots extends StatelessWidget {
   final List<String> movieImage;
@@ -26,7 +25,7 @@ class Screenshots extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
-                          color: HexColor('#9b9b9b'),
+                          color: Theme.of(context).shadowColor,
                           blurRadius: 10,
                           offset: Offset(0, 12), // Shadow position
                         ),

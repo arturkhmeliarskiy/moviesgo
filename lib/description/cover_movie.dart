@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/youtube_player/youtube_player_video.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_app/youtube_player/youtube_player.dart';
 import 'package:moviego_models/movie_detail_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -70,7 +69,7 @@ class _CoverMovie extends State<CoverMovie> {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: HexColor('#f4f4f4'),
+        color: Theme.of(context).scaffoldBackgroundColor,
         height: 380,
         child: Stack(
           children: [
@@ -81,7 +80,7 @@ class _CoverMovie extends State<CoverMovie> {
                   borderRadius: BorderRadius.circular(90.0),
                   boxShadow: [
                     BoxShadow(
-                      color: HexColor('#9b9b9b'),
+                      color: Theme.of(context).shadowColor,
                       blurRadius: 20,
                       offset: Offset(0, 8), // Shadow position
                     ),
@@ -95,7 +94,7 @@ class _CoverMovie extends State<CoverMovie> {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey,
+                          color: Theme.of(context).shadowColor,
                           blurRadius: 4,
                           offset: Offset(4, 8), // Shadow position
                         ),
@@ -103,7 +102,7 @@ class _CoverMovie extends State<CoverMovie> {
                     ),
                     child: CachedNetworkImage(
                       imageUrl:
-                          'https://image.tmdb.org/t/p/original/${widget.movie.posterpath}',
+                          widget.movie.posterpath,
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
                     ),
@@ -118,11 +117,11 @@ class _CoverMovie extends State<CoverMovie> {
                   padding: const EdgeInsets.all(0.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: HexColor('#ffffff'),
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(80.0),
                       boxShadow: [
                         BoxShadow(
-                          color: HexColor('#9b9b9b'),
+                          color: Theme.of(context).shadowColor,
                           blurRadius: 14,
                           offset: Offset(0, 8), // Shadow position
                         ),
@@ -133,7 +132,7 @@ class _CoverMovie extends State<CoverMovie> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => YouTube(
+                                builder: (context) => YPlay(
                                       id: widget.movie.trailerId,
                                     )));
                         // if (isLoaded) {
@@ -150,7 +149,7 @@ class _CoverMovie extends State<CoverMovie> {
                           ),
                         ),
                         Icon(Icons.play_arrow,
-                            color: Color(0xffd60506), size: 50.0),
+                            color: Theme.of(context).dividerColor, size: 50.0),
                       ]),
                     ),
                   ),
@@ -174,7 +173,7 @@ class _CoverMovie extends State<CoverMovie> {
                                 ? Icons.check_sharp
                                 : widget.icon,
                         // : Icons.check_sharp,
-                        color: HexColor('#4b1d97'),
+                        color: Theme.of(context).primaryColor,
                         size: 30,
                       ),
                       onPressed: () {
@@ -186,13 +185,23 @@ class _CoverMovie extends State<CoverMovie> {
                           selecteds != selecteds;
                           select = !select;
                         });
+                      final snackBar = SnackBar(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          content: Text(selecteds ?  'Фильм удален' : 'Фильм добавлен'),
+                          action: SnackBarAction(
+                          label: '',
+                          onPressed: () {
+                          // Some code to undo the change.
+                          },
+                          ),);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       //  async { await DBProvider.db.addMovie(testClients)},
                     ),
                     IconButton(
                       icon: Icon(
                         widget.icon2,
-                        color: HexColor('#4b1d97'),
+                        color: Theme.of(context).primaryColor,
                         size: 30,
                       ),
                       onPressed: () => share(widget.movie.homePage),

@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/star_rating/star_rating.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_model.dart';
 
 import '../description/description_screen.dart';
@@ -44,7 +43,7 @@ class _MyListHomeState extends State<MyListHome> {
                       borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
-                          color: HexColor('#9b9b9b'),
+                          color: Theme.of(context).shadowColor,
                           blurRadius: 10,
                           offset: Offset(0, 8), // Shadow position
                         ),
@@ -57,7 +56,7 @@ class _MyListHomeState extends State<MyListHome> {
                       borderRadius: BorderRadius.circular(15.0),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://image.tmdb.org/t/p/original/${widget.myMovies[index].posterPath}',
+                           widget.myMovies[index].posterPath,
                         fit: BoxFit.cover,
                         width: 120,
                         height: 150,
@@ -76,7 +75,7 @@ class _MyListHomeState extends State<MyListHome> {
                   ),
                   child: Text(
                     widget.myMovies[index].title,
-                    style: TextStyle(fontSize: 15, color: HexColor('#161616')),
+                    style: TextStyle(fontSize: 15, color: Theme.of(context).selectedRowColor),
                     maxLines: 1,
                   ),
                 ),

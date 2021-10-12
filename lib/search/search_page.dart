@@ -4,7 +4,6 @@ import 'package:flutter_app/description/description_screen.dart';
 import 'package:flutter_app/loading/loading_genres.dart';
 import 'package:flutter_app/search/movies%20_from_search.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:moviego_models/movie_model.dart';
 
 class SearchPage extends StatefulWidget {
@@ -39,38 +38,34 @@ class SearchPageScreen extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: HexColor('#fdfdfd'),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 0,
           centerTitle: true,
           title: Container(
             child: Row(children: <Widget>[
               Flexible(
                 child: TextField(
-                  style: TextStyle(color: HexColor('#4b1d97')),
+                  cursorColor: Theme.of(context).primaryColor,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
                   onSubmitted: (value) {
                     _bloc.add(SearchInitializeEvent(value));
                   },
                   controller: searchTextController,
-                  decoration: InputDecoration(
-                    // focusedBorder: OutlineInputBorder(
-                    //   borderSide:
-                    //       BorderSide(color: HexColor('#4b1d97'), width: 2.0),
-                    // ),
+                  decoration: InputDecoration(                   
                     focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: HexColor('#4b1d97'))),
-
+                        borderSide: BorderSide(color: Theme.of(context).primaryColor)),
                     hintText: 'Search movie',
                     suffixIcon: IconButton(
                         onPressed: searchTextController.clear,
                         icon: Icon(Icons.clear),
-                        color: HexColor('#4b1d97')),
+                        color: Theme.of(context).primaryColor),
                   ),
                 ),
               ),
               IconButton(
                 icon: Icon(
                   Icons.search,
-                  color: HexColor('#4b1d97'),
+                  color: Theme.of(context).primaryColor,
                 ),
                 tooltip: 'Search Movies',
                 onPressed: () {

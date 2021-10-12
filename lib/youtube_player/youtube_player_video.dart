@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -128,13 +127,13 @@ class _YouTubeState extends State<YouTube> {
       ),
       builder: (context, player) => Scaffold(
         appBar: AppBar(
-          backgroundColor: HexColor('#fdfdfd'),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           title: Text(
             'MOVIEGO',
-            style: TextStyle(color: HexColor('#4b1d97')),
+            style: TextStyle(color: Theme.of(context).primaryColor),
           ),
           iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
+            color: Theme.of(context).primaryColor, //change your color here
           ),
           elevation: 0,
           centerTitle: true,
@@ -226,7 +225,7 @@ class _YouTubeState extends State<YouTube> {
                       ),
                       FullScreenButton(
                         controller: controller,
-                        color: Colors.blueAccent,
+                        color: Theme.of(context).primaryColor,
                       ),
                       IconButton(
                         icon: const Icon(Icons.skip_next),
@@ -268,6 +267,7 @@ class _YouTubeState extends State<YouTube> {
                   ),
                   _space,
                   AnimatedContainer(
+                    
                     duration: const Duration(milliseconds: 800),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
@@ -296,15 +296,15 @@ class _YouTubeState extends State<YouTube> {
     return RichText(
       text: TextSpan(
         text: '$title : ',
-        style: const TextStyle(
-          color: Colors.blueAccent,
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.bold,
         ),
         children: [
           TextSpan(
             text: value,
-            style: const TextStyle(
-              color: Colors.blueAccent,
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.w300,
             ),
           ),
@@ -337,7 +337,7 @@ class _YouTubeState extends State<YouTube> {
   Widget _loadCueButton(String action) {
     return Expanded(
       child: MaterialButton(
-        color: Colors.blueAccent,
+        color: Theme.of(context).primaryColor,
         onPressed: _isPlayerReady
             ? () {
                 if (_idController.text.isNotEmpty) {

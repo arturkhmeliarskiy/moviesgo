@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class DescritionMovie extends StatelessWidget {
   final String descrition;
@@ -17,7 +16,7 @@ class DescritionMovie extends StatelessWidget {
       child: Center(
         child: Text(descrition,
             style: TextStyle(
-              color: HexColor('#585858'),
+              color:Theme.of(context).unselectedWidgetColor,
               fontSize: 15,
             ),
             maxLines: 6,

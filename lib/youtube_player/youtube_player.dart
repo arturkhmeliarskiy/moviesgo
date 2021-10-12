@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -42,35 +41,37 @@ class _YPlayState extends State<YPlay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: HexColor('#fdfdfd'),
-        title: Text(
-          'MOVIEGO',
-          style: TextStyle(color: HexColor('#4b1d97')),
-        ),
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          YoutubePlayerControllerProvider(
-            // Provides controller to all the widget below it.
-            controller: controller,
-            child: YoutubePlayerIFrame(
-              aspectRatio: 16 / 9,
-            ),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          title: Text(
+            'MOVIEGO',
+            style: TextStyle(color: Theme.of(context).primaryColor),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            width: 300,
-            height: 50,
-            child: AdWidget(
-              ad: myBanner,
-            ),
+          iconTheme: IconThemeData(
+            color: Theme.of(context).primaryColor, //change your color here
           ),
-        ],
+          elevation: 0,
+          centerTitle: true,
+        ),
+      body: Container(
+        child: Column(
+          children: [
+            YoutubePlayerControllerProvider(
+              // Provides controller to all the widget below it.
+              controller: controller,
+              child: YoutubePlayerIFrame(
+                aspectRatio: 16 / 9,
+              ),
+            ),
+            // Container(
+            //   margin: EdgeInsets.only(top: 20),
+            //   width: 300,
+            //   height: 50,
+            //   child: AdWidget(
+            //     ad: myBanner,
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

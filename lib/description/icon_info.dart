@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 
 class IconInfo extends StatelessWidget {
@@ -29,12 +29,12 @@ class IconInfo extends StatelessWidget {
             children: [
               LocaleText(
                 "Year",
-                style: TextStyle(color: HexColor('#585858'), fontSize: 15),
+                style: TextStyle(color: Theme.of(context).unselectedWidgetColor, fontSize: 15),
               ),
               Text(
                 DateFormat.y().format(DateTime.parse(year.toString())),
                 style: TextStyle(
-                    color: HexColor('#4b1d97'),
+                    color: Theme.of(context).primaryColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               )
@@ -44,12 +44,12 @@ class IconInfo extends StatelessWidget {
             children: [
               LocaleText(
                 "Country",
-                style: TextStyle(color: HexColor('#585858'), fontSize: 15),
+                style: TextStyle(color: Theme.of(context).unselectedWidgetColor, fontSize: 15),
               ),
               Text(
                 country.map((e) => e["iso_3166_1"]).join(''),
                 style: TextStyle(
-                    color: HexColor('#4b1d97'),
+                    color: Theme.of(context).primaryColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               )
@@ -59,12 +59,12 @@ class IconInfo extends StatelessWidget {
             children: [
               LocaleText(
                 "Length",
-                style: TextStyle(color: HexColor('#585858'), fontSize: 15),
+                style: TextStyle(color: Theme.of(context).unselectedWidgetColor, fontSize: 15),
               ),
               Text(
                 durationToString(length),
                 style: TextStyle(
-                    color: HexColor('#4b1d97'),
+                    color: Theme.of(context).primaryColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               )

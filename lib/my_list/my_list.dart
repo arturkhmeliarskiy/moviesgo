@@ -6,7 +6,6 @@ import 'package:flutter_app/loading/loading_genres.dart';
 import 'package:flutter_app/star_rating/star_rating.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class MyList extends StatefulWidget {
   @override
@@ -64,7 +63,7 @@ class _MyList extends State<MyList> {
                                   borderRadius: BorderRadius.circular(20.0),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: HexColor('#9b9b9b'),
+                                      color: Theme.of(context).shadowColor,
                                       blurRadius: 10,
                                       offset: Offset(0, 8), // Shadow position
                                     ),
@@ -74,7 +73,7 @@ class _MyList extends State<MyList> {
                                   borderRadius: BorderRadius.circular(15.0),
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                        'https://image.tmdb.org/t/p/original/${state.myListMovie[index].posterPath}',
+                                        state.myListMovie[index].posterPath,
                                     fit: BoxFit.cover,
                                     width: 120,
                                     height: 150,
@@ -97,7 +96,7 @@ class _MyList extends State<MyList> {
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
-                                            color: HexColor('#242757')),
+                                            color: Theme.of(context).splashColor),
                                         maxLines: 2,
                                       ),
                                     ),
@@ -133,7 +132,7 @@ class _MyList extends State<MyList> {
                               },
                               icon: Icon(
                                 Icons.delete,
-                                color: HexColor('#242757'),
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),

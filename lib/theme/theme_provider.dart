@@ -1,28 +1,30 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/colors/movie_color.dart';
-import 'package:hexcolor/hexcolor.dart';
 
-class MyTheme {
-  static final darkTheme =  ThemeData(
-    scaffoldBackgroundColor: HexColor('#0000'),
-    colorScheme: ColorScheme.dark()
-  );
+class ThemeProvider extends ChangeNotifier {
+  ThemeMode themeMode = ThemeMode.light;
+  bool get isDarkMode => themeMode == ThemeMode.dark;
 
-  static final lightTheme =  ThemeData(
-    scaffoldBackgroundColor: Colors.white,
-    colorScheme: ColorScheme.light()
-  );
+  void toggleTheme(bool isOn) {
+    themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
+    notifyListeners();
+  }
 }
 
+class MyTheme {
   static final darkTheme = ThemeData(
-      scaffoldBackgroundColor: HexColor('#161616'),
+      scaffoldBackgroundColor: MovieColor.blackBacground,
       primaryColor: MovieColor.yellow,
-      backgroundColor: HexColor('#0f0f0f'),
+      highlightColor: MovieColor.white,
+      backgroundColor: MovieColor.black,
       textTheme: TextTheme(),
+      selectedRowColor: MovieColor.white,
+      splashColor: MovieColor.white,
+      canvasColor: MovieColor.yellow,
+      dividerColor: MovieColor.yellow,
       colorScheme: ColorScheme.dark(),
-      cardColor: HexColor('ffc400'),
+      shadowColor: MovieColor.blackBacground,
+      cardColor: MovieColor.yellow,
       unselectedWidgetColor: Colors.grey,
       iconTheme: IconThemeData(color: MovieColor.yellow));
 
@@ -30,11 +32,16 @@ class MyTheme {
       scaffoldBackgroundColor: Colors.white,
       primaryColor: MovieColor.purple,
       backgroundColor: Colors.white,
+       highlightColor: MovieColor.black,
       colorScheme: ColorScheme.light(),
+      splashColor: MovieColor.purple,
+      canvasColor: MovieColor.black,
+      dividerColor: MovieColor.red,
+      selectedRowColor: MovieColor.black,
+      shadowColor: MovieColor.greyShadow,
       cardColor: MovieColor.purple,
       unselectedWidgetColor: Colors.grey,
       iconTheme: IconThemeData(
         color: MovieColor.purple,
       ));
 }
-
