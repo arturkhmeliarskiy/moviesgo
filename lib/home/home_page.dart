@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: HexColor('#fdfdfd'),
         title: Text(
           'MOVIEGO',
-          style: TextStyle(color: MovieColor().purple),
+          style: TextStyle(color: MovieColor.purple),
         ),
         elevation: 0,
         centerTitle: true,

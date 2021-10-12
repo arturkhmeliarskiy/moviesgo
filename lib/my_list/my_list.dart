@@ -22,7 +22,7 @@ class _MyList extends State<MyList> {
       appBar: AppBar(
         title: LocaleText(
           "MyList",
-          style: TextStyle(color: HexColor('#4b1d97')),
+          style: TextStyle(color: Theme.of(context).primaryColor),
         ),
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here

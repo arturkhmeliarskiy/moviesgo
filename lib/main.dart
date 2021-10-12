@@ -31,21 +31,19 @@ class _AppState extends State<App> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-    ChangeNotifierProvider(
+
+  Widget build(BuildContext context) => ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
       builder: (context, _) {
+        final themeProvider = Provider.of<ThemeProvider>(context);
         return LocaleBuilder(
-        builder: (locale) =>
-        MaterialApp(
-          themeMode: ThemeMode.system,
-          theme: MyTheme.lightTheme,
-          darkTheme: MyTheme.darkTheme,
-          localizationsDelegates: Locales.delegates,
-          supportedLocales: Locales.supportedLocales,
-          locale: locale,
-          home: Navigation()));
-    }
-    );
-  
+            builder: (locale) => MaterialApp(
+                themeMode: themeProvider.themeMode,
+                theme: MyTheme.lightTheme,
+                darkTheme: MyTheme.darkTheme,
+                localizationsDelegates: Locales.delegates,
+                supportedLocales: Locales.supportedLocales,
+                locale: locale,
+                home: Navigation()));
+      });
 }
