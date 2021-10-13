@@ -40,7 +40,7 @@ dependencies:
     path: packages/moviego_repositories
   provider: ^6.0.1
   flag: ^5.0.1
-  
+  incrementally_loading_listview: ^1.0.0
 
 dev_dependencies:
   flutter_test:

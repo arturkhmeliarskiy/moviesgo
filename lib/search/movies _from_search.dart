@@ -1,97 +1,58 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/star_rating/star_rating.dart';
+import 'package:flutter_app/loading/loading_genres.dart';
+import 'package:flutter_app/search/movie_info.dart';
 import 'package:moviego_models/movie_model.dart';
-import '../description/description_screen.dart';
 
-class MoviesFromSearch extends StatelessWidget {
+class MoviesFromSearch extends StatefulWidget {
   final List<MovieModel> mylist;
+
   const MoviesFromSearch({
     required this.mylist,
     Key? key,
   }) : super(key: key);
-//
+
+  @override
+  _MoviesFromSearchState createState() => _MoviesFromSearchState();
+}
+
+class _MoviesFromSearchState extends State<MoviesFromSearch> {
+  ScrollController _scrollController = ScrollController();
+  int _currentMax = 10;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _getMoreData();
+      }
+    });
+  }
+
+  _getMoreData() {
+    for (int i = _currentMax; i < _currentMax + 10; i++) {
+      return MovieInfo(movie: widget.mylist[i]);
+    }
+    _currentMax = _currentMax + 10;
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) => Expanded(
         child: Container(
           child: ListView.builder(
-            itemCount: mylist.length,
+            itemExtent: 190,
+            controller: _scrollController,
+            itemCount: widget.mylist.length + 1,
             scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(left: 20, bottom: 25),
-                child: Column(children: <Widget>[
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Route route = MaterialPageRoute(
-                              builder: (context) =>
-                                  DescriptionScreen(id: mylist[index].id));
-                          Navigator.push(context, route);
-                        },
-                        child: Container(
-                            width: 120.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Theme.of(context).shadowColor,
-                                  blurRadius: 10,
-                                  offset: Offset(0, 8), // Shadow position
-                                ),
-                              ],
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15.0),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    mylist[index].posterPath,
-                                fit: BoxFit.cover,
-                                width: 120,
-                                height: 150,
-                              ),
-                            )),
-                      ),
-                      Container(
-                        width: 190,
-                        margin: EdgeInsets.only(left: 15),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 180.0,
-                              margin: EdgeInsets.only(left: 35),
-                              child: Text(
-                                mylist[index].title,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).splashColor),
-                                maxLines: 2,
-                              ),
-                            ),
-                            Container(
-                              width: 120,
-                              height: 20,
-                              margin: EdgeInsets.only(left: 0),
-                              child: StarRating(
-                                rating:
-                                    double.parse(mylist[index].voteAverage) / 2,
-                                iconSize: 16.0,
-                                icon: Icons.star,
-                                icon2: Icons.star_border,
-                                fontSizes: 14,
-                                marginLeft: 4,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                ]),
-              );
+            itemBuilder: (context, i) {
+              if (i == widget.mylist.length) {
+                return LoadingGenres(n: 5);
+              }
+              return MovieInfo(movie: widget.mylist[i]);
             },
           ),
         ),

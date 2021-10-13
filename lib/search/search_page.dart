@@ -51,9 +51,10 @@ class SearchPageScreen extends State<SearchPage> {
                     _bloc.add(SearchInitializeEvent(value));
                   },
                   controller: searchTextController,
-                  decoration: InputDecoration(                   
+                  decoration: InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor)),
                     hintText: 'Search movie',
                     suffixIcon: IconButton(
                         onPressed: searchTextController.clear,
@@ -95,7 +96,10 @@ class SearchPageScreen extends State<SearchPage> {
                     );
                   }
                   if (state is SearchStateSuccessState) {
-                    return MoviesFromSearch(mylist: state.searchMovies);
+                    return MoviesFromSearch(
+                        mylist: state.searchMovies.length < 10
+                            ? state.searchMovies
+                            : state.searchMovies);
                   }
                   return SizedBox();
                 },

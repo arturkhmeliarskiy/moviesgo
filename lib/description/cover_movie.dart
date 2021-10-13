@@ -101,8 +101,7 @@ class _CoverMovie extends State<CoverMovie> {
                       ],
                     ),
                     child: CachedNetworkImage(
-                      imageUrl:
-                          widget.movie.posterpath,
+                      imageUrl: widget.movie.posterpath,
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
                     ),
@@ -176,8 +175,8 @@ class _CoverMovie extends State<CoverMovie> {
                         color: Theme.of(context).primaryColor,
                         size: 30,
                       ),
-                      onPressed: () {
-                        selecteds
+                      onPressed: () async {
+                        await selecteds
                             ? widget.removeFromFavorites()
                             : widget.addToFavorites();
                         setState(() {
@@ -185,16 +184,23 @@ class _CoverMovie extends State<CoverMovie> {
                           selecteds != selecteds;
                           select = !select;
                         });
-                      final snackBar = SnackBar(
+                        final snackBar = SnackBar(
                           backgroundColor: Theme.of(context).primaryColor,
-                          content: Text(selecteds ?  'Фильм удален' : 'Фильм добавлен'),
+                          content: Text(selecteds
+                              ? select
+                                  ? 'Фильм удален'
+                                  : 'Фильм добавлен'
+                              : select
+                                  ? 'Фильм добавлен'
+                                  : 'Фильм удален'),
                           action: SnackBarAction(
-                          label: '',
-                          onPressed: () {
-                          // Some code to undo the change.
-                          },
-                          ),);
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            label: '',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       //  async { await DBProvider.db.addMovie(testClients)},
                     ),
