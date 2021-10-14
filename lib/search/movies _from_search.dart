@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/loading/loading_genres.dart';
-import 'package:flutter_app/search/movie_info.dart';
+import 'package:flutter_app/movie_info/movie_info.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:moviego_models/movie_model.dart';
 
 class MoviesFromSearch extends StatefulWidget {
@@ -19,6 +19,7 @@ class MoviesFromSearch extends StatefulWidget {
 class _MoviesFromSearchState extends State<MoviesFromSearch> {
   ScrollController _scrollController = ScrollController();
   int _currentMax = 10;
+  
 
   @override
   void initState() {
@@ -33,10 +34,9 @@ class _MoviesFromSearchState extends State<MoviesFromSearch> {
 
   _getMoreData() {
     for (int i = _currentMax; i < _currentMax + 10; i++) {
-      return MovieInfo(movie: widget.mylist[i]);
+          widget.mylist.add(widget.mylist[i]);
     }
-    _currentMax = _currentMax + 10;
-
+      _currentMax = _currentMax + 20;
     setState(() {});
   }
 
@@ -46,13 +46,24 @@ class _MoviesFromSearchState extends State<MoviesFromSearch> {
           child: ListView.builder(
             itemExtent: 190,
             controller: _scrollController,
-            itemCount: widget.mylist.length + 1,
+            itemCount: widget.mylist.length - 9,
             scrollDirection: Axis.vertical,
             itemBuilder: (context, i) {
-              if (i == widget.mylist.length) {
-                return LoadingGenres(n: 5);
+              if (_currentMax == i) {
+                return Padding(
+              padding: const EdgeInsets.all(64),
+              child: Center(
+                child: LoadingIndicator(
+                  indicatorType: Indicator.pacman,
+                  colors: [Theme.of(context).primaryColor],
+                  strokeWidth: 3.0,
+                  pathBackgroundColor:
+                      Theme.of(context).backgroundColor,
+                ),
+              ),
+            );
               }
-              return MovieInfo(movie: widget.mylist[i]);
+               return MovieInfo(movie: widget.mylist[i]);
             },
           ),
         ),
